@@ -1,0 +1,2 @@
+# Aanmeldingen bevatten persoonsgegevens -> niet in git
+data/*.csv

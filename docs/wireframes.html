@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Wireframes Kamado Breda</title>
+<style>
+    /* Wireframe-stijl: alleen grijstinten, geen echte kleuren of foto's */
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 40px; background: #ffffff; font-family: Arial, Helvetica, sans-serif; color: #333; }
+    .wf { margin-bottom: 80px; }
+    .wf-title { font-size: 22px; font-weight: bold; margin: 0 0 4px; }
+    .wf-sub { font-size: 14px; color: #777; margin: 0 0 16px; }
+    .frame { border: 2px solid #333; background: #fafafa; }
+    .desktop { width: 1200px; }
+    .mobile { width: 375px; }
+    .wf-row { display: flex; gap: 60px; align-items: flex-start; }
+    .notes { width: 300px; font-size: 14px; line-height: 1.5; }
+    .notes h4 { margin: 0 0 8px; font-size: 15px; }
+    .notes ol { margin: 0; padding-left: 0; list-style: none; }
+    .notes li { margin-bottom: 10px; position: relative; padding-left: 30px; }
+    .notes li .n { position: absolute; left: 0; top: 0; }
+
+    /* Annotatie-nummertjes */
+    .n { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+         width: 22px; height: 22px; border-radius: 50%; background: #2b6cd4; color: #fff;
+         font-size: 12px; font-weight: bold; }
+    .pin { position: absolute; top: -11px; right: -11px; z-index: 2; }
+    .rel { position: relative; }
+
+    /* Bouwstenen */
+    .pad { padding: 24px 40px; }
+    .m .pad { padding: 16px; }
+    .sec { padding: 40px; border-bottom: 1px dashed #bbb; }
+    .m .sec { padding: 24px 16px; }
+    .dark { background: #d9d9d9; }
+    .darker { background: #bdbdbd; }
+    .img { position: relative; background: #e6e6e6; border: 1px solid #999;
+           background-image:
+             linear-gradient(to top right, transparent calc(50% - 1px), #aaa, transparent calc(50% + 1px)),
+             linear-gradient(to bottom right, transparent calc(50% - 1px), #aaa, transparent calc(50% + 1px)); }
+    .img > span:not(.n) { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+                background: #fafafa; border: 1px solid #999; padding: 2px 8px; font-size: 12px; color: #555; white-space: nowrap; }
+    .line { height: 10px; background: #c8c8c8; border-radius: 2px; margin: 8px 0; }
+    .w90 { width: 90%; } .w80 { width: 80%; } .w70 { width: 70%; } .w60 { width: 60%; } .w50 { width: 50%; } .w40 { width: 40%; } .w30 { width: 30%; }
+    .h1 { font-size: 34px; font-weight: bold; margin: 0 0 12px; text-transform: uppercase; }
+    .m .h1 { font-size: 24px; }
+    .h2 { font-size: 24px; font-weight: bold; margin: 0 0 12px; text-transform: uppercase; }
+    .m .h2 { font-size: 20px; }
+    .h3 { font-size: 16px; font-weight: bold; margin: 8px 0; }
+    .small { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-bottom: 6px; }
+    .btn { display: inline-block; border: 2px solid #333; padding: 8px 16px; font-size: 13px; font-weight: bold;
+           text-transform: uppercase; background: #fff; }
+    .btn.fill { background: #555; color: #fff; border-color: #555; }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .grid { display: grid; gap: 20px; }
+    .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); }
+    .card { border: 1px solid #999; background: #fff; }
+    .card .body { padding: 12px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .center { text-align: center; }
+    .flex { display: flex; align-items: center; justify-content: space-between; }
+    .gap { display: flex; gap: 10px; align-items: center; }
+
+    /* Header */
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 14px 40px;
+              background: #bdbdbd; border-bottom: 2px solid #333; }
+    .m .header { padding: 12px 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: bold; }
+    .logo i { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #333; background: #e6e6e6; display: inline-block; }
+    .m .logo i { width: 36px; height: 36px; }
+    .nav { display: flex; gap: 28px; align-items: center; font-size: 14px; font-weight: bold; text-transform: uppercase; }
+    .nav .act { border-bottom: 3px solid #333; }
+    .burger { width: 32px; }
+    .burger b { display: block; height: 4px; background: #333; margin: 5px 0; }
+
+    /* Footer */
+    .footer { background: #bdbdbd; padding: 30px 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px; border-top: 2px solid #333; }
+    .m .footer { grid-template-columns: 1fr; padding: 20px 16px; gap: 16px; }
+
+    /* Galerij */
+    .gal-main { position: relative; height: 420px; }
+    .m .gal-main { height: 240px; }
+    .arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%;
+             background: #fff; border: 2px solid #333; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .arrow.l { left: 12px; } .arrow.r { right: 12px; }
+    .counter { position: absolute; right: 12px; bottom: 12px; background: #fff; border: 1px solid #333; padding: 2px 8px; font-size: 12px; }
+    .zoom { position: absolute; right: 12px; top: 12px; width: 30px; height: 30px; background: #fff; border: 1px solid #333; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .thumbs { display: flex; gap: 8px; margin-top: 10px; }
+    .thumbs .img { width: 90px; height: 66px; }
+    .m .thumbs .img { width: 64px; height: 48px; }
+    .thumbs .on { outline: 3px solid #333; }
+
+    /* Formulier */
+    .field { margin-bottom: 14px; }
+    .label { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+    .input { height: 36px; border: 1px solid #777; background: #fff; }
+    .input.sel::after { content: '▾'; float: right; margin: 8px 10px; }
+    .area { height: 80px; border: 1px solid #777; background: #fff; }
+    .radio { display: flex; gap: 20px; font-size: 13px; }
+    .radio span::before { content: '○ '; }
+    .check { font-size: 13px; }
+    .check::before { content: '☐ '; }
+    .summary { background: #bdbdbd; padding: 20px; border: 1px solid #333; }
+    .badge { display: inline-block; border: 1px solid #333; background: #fff; font-size: 11px; padding: 2px 6px; font-weight: bold; }
+    .table div { display: flex; border-bottom: 1px solid #bbb; padding: 8px 0; font-size: 13px; }
+    .table div b { width: 45%; }
+    .check-ok { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #333; margin: 0 auto 16px;
+                display: flex; align-items: center; justify-content: center; font-size: 32px; }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     RELATIES TUSSEN DE WIREFRAMES (sitemap + gebruikersstroom)
+     ========================================================= -->
+<style>
+    .flow text { font-family: Arial, Helvetica, sans-serif; }
+    .flow .lbl { font-size: 13px; fill: #333; paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+    .flow .title { font-size: 15px; font-weight: bold; fill: #222; }
+    .flow .file { font-size: 12px; fill: #777; }
+    .flow .node { fill: #fafafa; stroke: #333; stroke-width: 2; }
+    .flow .thumb { fill: #e6e6e6; stroke: #999; }
+    .flow .link { fill: none; stroke: #333; stroke-width: 2; }
+    .flow .post { fill: none; stroke: #2b6cd4; stroke-width: 2.5; }
+    .flow .server { fill: none; stroke: #888; stroke-width: 2; stroke-dasharray: 7 5; }
+    .rel-table { border-collapse: collapse; font-size: 14px; width: 1640px; margin-top: 30px; }
+    .rel-table th, .rel-table td { border: 1px solid #bbb; padding: 7px 10px; text-align: left; vertical-align: top; }
+    .rel-table th { background: #bdbdbd; }
+    .rel-table tr:nth-child(even) td { background: #f3f3f3; }
+    .type { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; color: #fff; }
+    .t-link { background: #333; } .t-post { background: #2b6cd4; } .t-server { background: #888; }
+</style>
+<div class="wf" id="relaties">
+    <p class="wf-title">Relaties tussen de wireframes – sitemap &amp; gebruikersstroom</p>
+    <p class="wf-sub">Kamado Breda · hoe de pagina's met elkaar verbonden zijn (welke knop/link leidt waarheen)</p>
+
+    <svg class="flow" width="1680" height="1010" viewBox="0 0 1680 1010" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="pijl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker>
+            <marker id="pijl-blauw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b6cd4"/></marker>
+            <marker id="pijl-grijs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker>
+        </defs>
+
+        <!-- ===== Verbindingen (eerst tekenen, zodat de pagina's erboven liggen) ===== -->
+        <!-- 1 Home -> Kamado's -->
+        <path class="link" d="M320,430 C420,430 420,200 516,200" marker-end="url(#pijl)"/>
+        <text class="lbl" x="405" y="300" text-anchor="end">① Bekijk de kamado's</text>
+        <!-- 2 Home -> Product (over de bovenkant) -->
+        <path class="link" d="M200,380 L200,70 L1080,70 L1080,116" marker-end="url(#pijl)"/>
+        <text class="lbl" x="560" y="62">② Bekijk details (productkaart)</text>
+        <!-- 3 Home -> Masterclasses -->
+        <path class="link" d="M320,540 C420,540 420,760 516,760" marker-end="url(#pijl)"/>
+        <text class="lbl" x="405" y="655" text-anchor="end">③ Masterclasses /</text>
+        <text class="lbl" x="405" y="673" text-anchor="end">Inschrijven (?class=…)</text>
+        <!-- 4 Kamado's -> Product -->
+        <path class="link" d="M760,190 L956,190" marker-end="url(#pijl)"/>
+        <text class="lbl" x="800" y="180">④ Bekijk details</text>
+        <!-- 5 Product -> Kamado's (kruimelpad) -->
+        <path class="link" d="M960,255 L764,255" marker-end="url(#pijl)"/>
+        <text class="lbl" x="800" y="277">⑤ Kruimelpad</text>
+        <!-- 6 Product -> Product (andere kamado's) -->
+        <path class="link" d="M1110,330 C1110,400 1190,400 1190,336" marker-end="url(#pijl)"/>
+        <text class="lbl" x="1100" y="418">⑥ Andere kamado's</text>
+        <!-- 7 Product -> Masterclasses -->
+        <path class="link" d="M990,330 L744,636" marker-end="url(#pijl)"/>
+        <text class="lbl" x="880" y="470">⑦ Eerst een masterclass?</text>
+        <!-- 8 Product -> 404 -->
+        <path class="server" d="M1200,225 L1376,225" marker-end="url(#pijl-grijs)"/>
+        <text class="lbl" x="1222" y="215">⑧ onbekend ?id=</text>
+        <!-- 9 Masterclasses -> zichzelf (fouten) -->
+        <path class="post" d="M570,850 C570,925 710,925 710,856" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="520" y="945">⑨ POST met fouten → formulier opnieuw</text>
+        <!-- 10 Masterclasses -> Bevestiging -->
+        <path class="post" d="M760,720 L956,720" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="782" y="708">⑩ POST geldig</text>
+        <text class="lbl" x="782" y="742" style="font-size:12px">→ opslaan + redirect</text>
+        <!-- 11 Bevestiging -> Masterclasses (zonder inschrijving) -->
+        <path class="server" d="M960,800 L764,800" marker-end="url(#pijl-grijs)"/>
+        <text class="lbl" x="772" y="822" style="font-size:12px">⑪ geopend zonder inschrijving</text>
+        <!-- 12 Bevestiging -> Home -->
+        <path class="link" d="M1080,850 L1080,985 L130,985 L130,594" marker-end="url(#pijl)"/>
+        <text class="lbl" x="840" y="977">⑫ Terug naar home</text>
+        <!-- 13 Footer -> Fotobronnen -->
+        <path class="link" d="M1490,540 L1490,666" marker-end="url(#pijl)"/>
+        <text class="lbl" x="1500" y="610">⑬ Fotobronnen</text>
+
+        <!-- ===== Pagina's (wireframe-miniaturen) ===== -->
+        <!-- Home -->
+        <rect class="node" x="80" y="380" width="240" height="210"/>
+        <rect class="thumb" x="90" y="390" width="220" height="140"/>
+        <svg x="90" y="390" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/01-home-desktop.png" width="1638" height="2524"/></svg>
+        <text class="title" x="200" y="555" text-anchor="middle">Home</text>
+        <text class="file" x="200" y="575" text-anchor="middle">index.php · wf 01 + 02</text>
+
+        <!-- Kamado's -->
+        <rect class="node" x="520" y="120" width="240" height="210"/>
+        <svg x="530" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/03-kamados-desktop.png" width="1636" height="1934"/></svg>
+        <text class="title" x="640" y="295" text-anchor="middle">Kamado's (overzicht)</text>
+        <text class="file" x="640" y="315" text-anchor="middle">kamados.php · wf 03</text>
+
+        <!-- Product -->
+        <rect class="node" x="960" y="120" width="240" height="210"/>
+        <svg x="970" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/04-product.png" width="2064" height="1266"/></svg>
+        <text class="title" x="1080" y="295" text-anchor="middle">Productdetail</text>
+        <text class="file" x="1080" y="315" text-anchor="middle">product.php?id=… · wf 04</text>
+
+        <!-- 404 -->
+        <rect class="node" x="1380" y="160" width="220" height="130" style="stroke-dasharray:7 5"/>
+        <text class="title" x="1490" y="215" text-anchor="middle">404 – niet gevonden</text>
+        <text class="file" x="1490" y="237" text-anchor="middle">product.php (zelfde bestand)</text>
+        <text class="file" x="1490" y="257" text-anchor="middle">knop → Kamado's</text>
+
+        <!-- Masterclasses -->
+        <rect class="node" x="520" y="640" width="240" height="210"/>
+        <svg x="530" y="650" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/05-masterclass-desktop.png" width="1636" height="1936"/></svg>
+        <text class="title" x="640" y="815" text-anchor="middle">Masterclasses + formulier</text>
+        <text class="file" x="640" y="835" text-anchor="middle">masterclass.php · wf 05 + 06</text>
+
+        <!-- Bevestiging -->
+        <rect class="node" x="960" y="640" width="240" height="210"/>
+        <rect class="thumb" x="970" y="650" width="220" height="140"/>
+        <svg x="1040" y="650" width="81" height="140" viewBox="575 102 375 650" preserveAspectRatio="xMidYMin slice"><image href="wireframes/06-masterclass-mobiel.png" width="1348" height="1052"/></svg>
+        <text class="title" x="1080" y="815" text-anchor="middle">Bevestiging</text>
+        <text class="file" x="1080" y="835" text-anchor="middle">bevestiging.php · wf 06</text>
+
+        <!-- Fotobronnen -->
+        <rect class="node" x="1380" y="670" width="220" height="110"/>
+        <text class="title" x="1490" y="720" text-anchor="middle">Fotobronnen</text>
+        <text class="file" x="1490" y="742" text-anchor="middle">fotobronnen.php</text>
+        <text class="file" x="1490" y="760" text-anchor="middle">(geen eigen wireframe: tabel)</text>
+
+        <!-- ===== Header en footer (op elke pagina) ===== -->
+        <rect x="1380" y="330" width="220" height="120" fill="#bdbdbd" stroke="#333" stroke-width="2"/>
+        <text class="title" x="1490" y="355" text-anchor="middle">header.php</text>
+        <text class="file" x="1490" y="375" text-anchor="middle" style="fill:#333">op ELKE pagina. Menu naar:</text>
+        <text class="file" x="1490" y="395" text-anchor="middle" style="fill:#333">Home · Kamado's · Masterclasses</text>
+        <text class="file" x="1490" y="415" text-anchor="middle" style="fill:#333">+ knop Inschrijven</text>
+        <text class="file" x="1490" y="435" text-anchor="middle" style="fill:#333">(→ masterclass.php#inschrijven)</text>
+
+        <rect x="1380" y="480" width="220" height="60" fill="#bdbdbd" stroke="#333" stroke-width="2"/>
+        <text class="title" x="1490" y="505" text-anchor="middle">footer.php</text>
+        <text class="file" x="1490" y="525" text-anchor="middle" style="fill:#333">op ELKE pagina</text>
+
+        <!-- ===== Legenda ===== -->
+        <rect x="1300" y="840" width="370" height="120" fill="#fff" stroke="#bbb"/>
+        <text class="title" x="1315" y="865">Legenda</text>
+        <line class="link" x1="1315" y1="890" x2="1375" y2="890" marker-end="url(#pijl)"/>
+        <text class="file" x="1385" y="894" style="fill:#333">klik op link of knop</text>
+        <line class="post" x1="1315" y1="915" x2="1375" y2="915" marker-end="url(#pijl-blauw)"/>
+        <text class="file" x="1385" y="919" style="fill:#333">formulier versturen (POST, PHP)</text>
+        <line class="server" x1="1315" y1="940" x2="1375" y2="940" marker-end="url(#pijl-grijs)"/>
+        <text class="file" x="1385" y="944" style="fill:#333">automatisch door PHP (redirect / 404)</text>
+    </svg>
+
+    <table class="rel-table">
+        <thead>
+            <tr><th>#</th><th>Van (wireframe)</th><th>Element</th><th>Naar</th><th>Type</th><th>Wat gebeurt er?</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>①</td><td>Home (01/02)</td><td>Knop "Bekijk de kamado's" in de hero</td><td>Kamado's (03)</td><td><span class="type t-link">link</span></td><td>Gewone link naar <b>kamados.php</b>.</td></tr>
+            <tr><td>②</td><td>Home (01/02)</td><td>Knop "Bekijk details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Link met het id van het product, bijv. <b>product.php?id=blue-l</b>.</td></tr>
+            <tr><td>③</td><td>Home (01/02)</td><td>Knop "Masterclasses" / "Inschrijven" op een masterclass-kaart</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Bij "Inschrijven" gaat het id mee (<b>?class=low-slow#inschrijven</b>): de juiste masterclass staat dan al gekozen en de pagina springt naar het formulier.</td></tr>
+            <tr><td>④</td><td>Kamado's (03)</td><td>Knop "Bekijk details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde productkaart als op Home (één include: <b>kamado-kaart.php</b>).</td></tr>
+            <tr><td>⑤</td><td>Productdetail (04)</td><td>Kruimelpad "Home / Kamado's"</td><td>Kamado's (03) of Home</td><td><span class="type t-link">link</span></td><td>Terug naar het overzicht.</td></tr>
+            <tr><td>⑥</td><td>Productdetail (04)</td><td>"Andere kamado's" onderaan</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde pagina, ander <b>?id=</b>. Het huidige product wordt overgeslagen.</td></tr>
+            <tr><td>⑦</td><td>Productdetail (04)</td><td>Knop "Eerst een masterclass?"</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Voor klanten die twijfelen: eerst leren, dan kopen.</td></tr>
+            <tr><td>⑧</td><td>Productdetail (04)</td><td>Onbekend of leeg <b>?id=</b></td><td>404-melding</td><td><span class="type t-server">PHP</span></td><td>PHP vindt het id niet in <b>data.php</b> en toont een nette 404 met een knop naar Kamado's.</td></tr>
+            <tr><td>⑨</td><td>Masterclasses (05/06)</td><td>Knop "Inschrijven" met fouten</td><td>Masterclasses (05/06)</td><td><span class="type t-post">POST</span></td><td>PHP controleert <b>$_POST</b>. Bij fouten komt dezelfde pagina terug met meldingen; ingevulde waarden blijven staan. (JavaScript vangt de meeste fouten al eerder af.)</td></tr>
+            <tr><td>⑩</td><td>Masterclasses (05/06)</td><td>Knop "Inschrijven" goed ingevuld</td><td>Bevestiging (06)</td><td><span class="type t-post">POST</span></td><td>PHP slaat de inschrijving op, zet de gegevens in de sessie en stuurt door (redirect) naar <b>bevestiging.php</b>.</td></tr>
+            <tr><td>⑪</td><td>Bevestiging (06)</td><td>Pagina direct geopend (zonder inschrijving)</td><td>Masterclasses (05)</td><td><span class="type t-server">PHP</span></td><td>Er staat niets in de sessie → automatisch terug naar het formulier.</td></tr>
+            <tr><td>⑫</td><td>Bevestiging (06)</td><td>Knoppen "Terug naar home" / "Bekijk de kamado's"</td><td>Home (01) / Kamado's (03)</td><td><span class="type t-link">link</span></td><td>Einde van de inschrijfstroom.</td></tr>
+            <tr><td>⑬</td><td>Alle pagina's (footer)</td><td>Link "Fotobronnen"</td><td>Fotobronnen</td><td><span class="type t-link">link</span></td><td>Licenties van de gebruikte foto's.</td></tr>
+            <tr><td>–</td><td>Alle pagina's (header)</td><td>Menu: Home · Kamado's · Masterclasses · Inschrijven</td><td>Home / Kamado's / Masterclasses</td><td><span class="type t-link">link</span></td><td>Staat in <b>header.php</b>, dus elke pagina is vanaf elke pagina bereikbaar. Op mobiel achter het hamburgermenu (02).</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- =========================================================
+     HOME – DESKTOP
+     ========================================================= -->
+<div class="wf" id="home-desktop">
+    <p class="wf-title">Home – desktop</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · index.php</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header rel"><span class="n pin">1</span>
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span class="act">Home</span><span>Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+            </div>
+            <div class="img rel" style="height:440px;"><span class="n pin" style="right:20px;top:10px">2</span>
+                <span>hero-foto winkel Joris (donkere overlay)</span>
+                <div style="position:absolute;left:40px;top:120px;width:460px;background:#fafafa;border:1px solid #999;padding:24px;">
+                    <div class="small">Speciaalzaak in Breda</div>
+                    <div class="h1">Blauwe kamado's.<br>Echt vuur.</div>
+                    <div class="line w90"></div><div class="line w70"></div>
+                    <div class="btns"><span class="btn fill">Bekijk de kamado's</span><span class="btn">Masterclasses</span></div>
+                </div>
+            </div>
+            <div class="sec dark rel"><span class="n pin" style="right:20px">3</span>
+                <div class="grid g3">
+                    <div class="gap"><div class="img" style="width:44px;height:44px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 1</div><div class="line w80"></div></div></div>
+                    <div class="gap"><div class="img" style="width:44px;height:44px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 2</div><div class="line w80"></div></div></div>
+                    <div class="gap"><div class="img" style="width:44px;height:44px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 3</div><div class="line w80"></div></div></div>
+                </div>
+            </div>
+            <div class="sec rel"><span class="n pin" style="right:20px">4</span>
+                <div class="small">Het assortiment</div>
+                <div class="h2">Onze kamado's</div>
+                <div class="line w50"></div>
+                <div class="grid g3" style="margin-top:20px">
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w80"></div><div class="h3">€ 899,-</div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w80"></div><div class="h3">€ 1.299,-</div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w80"></div><div class="h3">€ 1.849,-</div><span class="btn">Bekijk details</span></div></div>
+                </div>
+            </div>
+            <div class="sec darker rel"><span class="n pin" style="right:20px">5</span>
+                <div class="small">Leren van de pitmaster</div>
+                <div class="h2">Komende masterclasses</div>
+                <div class="grid g3" style="margin-top:20px">
+                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 1</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 95,-</b><span class="badge">nog 4 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 2</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 149,-</b><span class="badge">nog 7 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 3</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 119,-</b><span class="badge">nog 10 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                </div>
+            </div>
+            <div class="sec">
+                <div class="split">
+                    <div class="img" style="height:320px"><span>foto Joris</span></div>
+                    <div>
+                        <div class="small">Over ons</div>
+                        <div class="h2">Hoi, ik ben Joris</div>
+                        <div class="line w90"></div><div class="line w80"></div><div class="line w90"></div><div class="line w60"></div>
+                        <div style="border-left:4px solid #333;padding:8px 12px;margin:16px 0;background:#eee"><div class="line w80"></div><div class="line w40"></div></div>
+                        <span class="btn">Kom langs in de winkel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sec dark center">
+                <div class="h2">Klaar voor je eerste low &amp; slow?</div>
+                <span class="btn fill">Schrijf je in</span>
+            </div>
+            <div class="footer rel"><span class="n pin" style="right:20px">6</span>
+                <div><div class="logo"><i></i></div><div class="line w70"></div><div class="line w50"></div></div>
+                <div><div class="h3">Winkel</div><div class="line w70"></div><div class="line w60"></div><div class="line w80"></div></div>
+                <div><div class="h3">Contact</div><div class="line w60"></div><div class="line w70"></div><div class="h3">Menu</div><div class="line w40"></div></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> Header staat in <b>header.php</b> en blijft bovenaan staan bij scrollen (sticky). Actieve pagina onderstreept.</li>
+                <li><span class="n">2</span> Grote foto van de winkel van Joris. Donkere laag zodat de witte tekst leesbaar is. Twee knoppen: naar de producten en naar de masterclasses.</li>
+                <li><span class="n">3</span> Blauwe balk met de 3 sterke punten van de winkel.</li>
+                <li><span class="n">4</span> Productkaarten komen uit de array in <b>data.php</b> (foreach).</li>
+                <li><span class="n">5</span> Donkere sectie: agenda met de eerstvolgende masterclasses, knop gaat direct naar het formulier.</li>
+                <li><span class="n">6</span> Footer staat in <b>footer.php</b>: adres, openingstijden, contact en menu.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     HOME – MOBIEL
+     ========================================================= -->
+<div class="wf" id="home-mobiel">
+    <p class="wf-title">Home – mobiel</p>
+    <p class="wf-sub">Kamado Breda · wireframe 375 px · index.php</p>
+    <div class="wf-row">
+        <div class="frame mobile m">
+            <div class="header rel"><span class="n pin">1</span>
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="burger"><b></b><b></b><b></b></div>
+            </div>
+            <div class="img" style="height:420px;">
+                <span style="top:30px">hero-foto</span>
+                <div style="position:absolute;left:16px;right:16px;bottom:24px;background:#fafafa;border:1px solid #999;padding:16px;">
+                    <div class="small">Speciaalzaak in Breda</div>
+                    <div class="h1">Blauwe kamado's. Echt vuur.</div>
+                    <div class="line w90"></div><div class="line w60"></div>
+                    <div class="btns"><span class="btn fill">Bekijk de kamado's</span><span class="btn">Masterclasses</span></div>
+                </div>
+            </div>
+            <div class="sec dark">
+                <div class="gap" style="margin-bottom:10px"><div class="img" style="width:40px;height:40px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 1</div><div class="line w80"></div></div></div>
+                <div class="gap" style="margin-bottom:10px"><div class="img" style="width:40px;height:40px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 2</div><div class="line w80"></div></div></div>
+                <div class="gap"><div class="img" style="width:40px;height:40px;border-radius:50%"></div><div style="flex:1"><div class="h3">USP 3</div><div class="line w80"></div></div></div>
+            </div>
+            <div class="sec rel"><span class="n pin" style="right:8px">2</span>
+                <div class="h2">Onze kamado's</div>
+                <div class="line w90"></div>
+                <div class="card" style="margin-top:16px"><div class="img" style="height:200px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M · € 899,-</div><span class="btn">Bekijk details</span></div></div>
+                <div class="card" style="margin-top:12px"><div class="img" style="height:200px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L · € 1.299,-</div><span class="btn">Bekijk details</span></div></div>
+                <div class="card" style="margin-top:12px"><div class="img" style="height:60px"><span>Blue XL …</span></div></div>
+            </div>
+            <div class="sec darker">
+                <div class="h2">Masterclasses</div>
+                <div class="card"><div class="img" style="height:120px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 1</div><div class="line w90"></div><span class="btn fill">Inschrijven</span></div></div>
+                <div class="card" style="margin-top:12px"><div class="img" style="height:50px"><span>Masterclass 2 …</span></div></div>
+            </div>
+            <div class="sec">
+                <div class="img" style="height:200px"><span>foto Joris</span></div>
+                <div class="h2" style="margin-top:16px">Hoi, ik ben Joris</div>
+                <div class="line w90"></div><div class="line w80"></div><div class="line w60"></div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div><div class="line w70"></div></div>
+                <div><div class="h3">Winkel</div><div class="line w60"></div><div class="line w50"></div></div>
+                <div><div class="h3">Contact</div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="frame mobile m rel" style="height:420px;">
+            <span class="n pin">1</span>
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div style="font-size:30px;font-weight:bold">✕</div>
+            </div>
+            <div class="darker" style="padding:8px 16px 20px;">
+                <div style="padding:12px 0;border-bottom:1px solid #888;font-weight:bold">HOME</div>
+                <div style="padding:12px 0;border-bottom:1px solid #888;font-weight:bold">KAMADO'S</div>
+                <div style="padding:12px 0;border-bottom:1px solid #888;font-weight:bold">MASTERCLASSES</div>
+                <div class="btns"><span class="btn fill">Inschrijven</span></div>
+            </div>
+            <div class="img" style="height:150px;opacity:.5"><span>pagina eronder</span></div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> Op mobiel is het menu verborgen achter een hamburger-icoon. Klik = menu klapt open en het icoon wordt een kruisje (JavaScript, rechts afgebeeld).</li>
+                <li><span class="n">2</span> Alle kaarten staan onder elkaar (1 kolom). Vanaf 700 px 2 kolommen, vanaf 1000 px 3 kolommen.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     KAMADO'S – DESKTOP
+     ========================================================= -->
+<div class="wf" id="kamados-desktop">
+    <p class="wf-title">Kamado's (overzicht) – desktop</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · kamados.php</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+            </div>
+            <div class="sec darker">
+                <div class="small">Het assortiment</div>
+                <div class="h1">Onze blauwe kamado's</div>
+                <div class="line w50"></div><div class="line w40"></div>
+            </div>
+            <div class="sec rel"><span class="n pin" style="right:20px">1</span>
+                <div class="img gal-main"><span>grote foto (wisselt zonder herladen)</span>
+                    <div class="arrow l">‹</div><div class="arrow r">›</div><div class="zoom">⛶</div><div class="counter">3 / 8</div>
+                </div>
+                <div class="thumbs">
+                    <div class="img"></div><div class="img"></div><div class="img on"></div><div class="img"></div><div class="img"></div><div class="img"></div><div class="img"></div><div class="img"></div>
+                </div>
+            </div>
+            <div class="sec dark">
+                <div class="h2">Kies jouw formaat</div>
+                <div class="grid g3">
+                    <div class="card"><div class="img" style="height:240px"><span>Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:240px"><span>Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:240px"><span>Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
+                </div>
+            </div>
+            <div class="sec rel"><span class="n pin" style="right:20px">2</span>
+                <div class="h2">Gietijzer &amp; accessoires</div>
+                <div class="grid g4">
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 59,-</b></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 129,-</b></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 79,-</b></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 24,-</b></div></div>
+                </div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div><div class="line w70"></div></div>
+                <div><div class="h3">Winkel</div><div class="line w60"></div></div>
+                <div><div class="h3">Contact</div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> <b>Interactieve galerij (JavaScript):</b> klik op een thumbnail of de pijlen → grote foto wisselt zonder dat de pagina herlaadt. Teller laat zien welke foto. Pijltjestoetsen en vegen op mobiel werken ook. ⛶ = foto vergroten (lightbox).</li>
+                <li><span class="n">2</span> Accessoires: 4 kolommen op desktop, 2 op tablet, 1 op mobiel.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     PRODUCTDETAIL – DESKTOP + MOBIEL
+     ========================================================= -->
+<div class="wf" id="product">
+    <p class="wf-title">Productdetail – desktop &amp; mobiel</p>
+    <p class="wf-sub">Kamado Breda · product.php?id=blue-l (één bestand voor alle kamado's)</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+            </div>
+            <div class="sec">
+                <div class="rel" style="font-size:13px;margin-bottom:16px;"><u>Home</u> / <u>Kamado's</u> / Blue L <span class="n" style="margin-left:8px">1</span></div>
+                <div class="grid" style="grid-template-columns:1.2fr 1fr;gap:40px">
+                    <div>
+                        <div class="img gal-main" style="height:380px"><span>galerij (zelfde als overzicht)</span><div class="arrow l">‹</div><div class="arrow r">›</div><div class="counter">1 / 5</div></div>
+                        <div class="thumbs"><div class="img on"></div><div class="img"></div><div class="img"></div><div class="img"></div><div class="img"></div></div>
+                    </div>
+                    <div>
+                        <span class="badge">BESTSELLER</span>
+                        <div class="h1" style="margin-top:10px">Kamado Breda Blue L</div>
+                        <div class="h2">€ 1.299,-</div>
+                        <div class="line w90"></div><div class="line w80"></div><div class="line w90"></div><div class="line w50"></div>
+                        <div style="margin-top:16px">✓ <span class="line w60" style="display:inline-block;margin:0"></span></div>
+                        <div>✓ <span class="line w50" style="display:inline-block;margin:0"></span></div>
+                        <div>✓ <span class="line w70" style="display:inline-block;margin:0"></span></div>
+                        <div class="btns"><span class="btn fill">Vraag offerte aan</span><span class="btn">Eerst een masterclass?</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sec dark">
+                <div class="grid" style="grid-template-columns:1fr 1.3fr;gap:40px">
+                    <div class="rel"><span class="n pin">2</span>
+                        <div class="h2">Specificaties</div>
+                        <div class="table" style="background:#fff;padding:0 12px">
+                            <div><b>Roosterdiameter</b>53 cm</div><div><b>Hoogte</b>118 cm</div><div><b>Gewicht</b>96 kg</div><div><b>Geschikt voor</b>4 – 8 pers.</div><div><b>Garantie</b>10 jaar</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="h2">Andere kamado's</div>
+                        <div class="grid g2">
+                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue M</div><span class="btn">Bekijk</span></div></div>
+                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue XL</div><span class="btn">Bekijk</span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="sec">
+                <div style="font-size:12px;margin-bottom:12px"><u>Home</u> / <u>Kamado's</u> / Blue L</div>
+                <div class="img gal-main"><span>galerij</span><div class="arrow l">‹</div><div class="arrow r">›</div><div class="counter">1 / 5</div></div>
+                <div class="thumbs"><div class="img on"></div><div class="img"></div><div class="img"></div><div class="img"></div></div>
+                <div style="margin-top:16px"><span class="badge">BESTSELLER</span></div>
+                <div class="h1" style="margin-top:8px">Blue L</div>
+                <div class="h2">€ 1.299,-</div>
+                <div class="line w90"></div><div class="line w80"></div><div class="line w60"></div>
+                <div class="btns"><span class="btn fill">Vraag offerte aan</span></div>
+            </div>
+            <div class="sec dark">
+                <div class="h2">Specificaties</div>
+                <div class="table" style="background:#fff;padding:0 10px"><div><b>Rooster</b>53 cm</div><div><b>Gewicht</b>96 kg</div><div><b>…</b></div></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> Kruimelpad zodat de bezoeker weet waar hij is en makkelijk terug kan.</li>
+                <li><span class="n">2</span> Specificaties in een tabel. Alle gegevens komen uit <b>data.php</b>. Bestaat het id niet → 404-pagina.</li>
+                <li>Mobiel: galerij boven, daaronder tekst, knoppen en specificaties.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     MASTERCLASSES – DESKTOP
+     ========================================================= -->
+<div class="wf" id="masterclass-desktop">
+    <p class="wf-title">Masterclasses + inschrijfformulier – desktop</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · masterclass.php</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span>Home</span><span>Kamado's</span><span class="act">Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+            </div>
+            <div class="img" style="height:200px"><span style="left:auto;right:20px;transform:translateY(-50%)">achtergrondfoto brisket</span>
+                <div style="position:absolute;left:40px;top:40px;width:520px;background:#fafafa;border:1px solid #999;padding:16px 20px">
+                    <div class="h1">BBQ-masterclasses</div><div class="line w90"></div><div class="line w60"></div>
+                </div>
+            </div>
+            <div class="sec">
+                <div class="h2">Agenda</div>
+                <div class="grid g3">
+                    <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Kamado Basics</div><div class="line w90"></div><div class="flex"><b>€ 95,-</b><span class="badge">nog 4</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Low &amp; Slow</div><div class="line w90"></div><div class="flex"><b>€ 149,-</b><span class="badge">nog 7</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Winter BBQ</div><div class="line w90"></div><div class="flex"><b>€ 119,-</b><span class="badge">nog 10</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                </div>
+            </div>
+            <div class="sec dark">
+                <div class="split">
+                    <div><div class="h2">Wat kun je verwachten?</div><div class="line w90"></div><div class="line w70"></div><div>✓ ✓ ✓ ✓ (lijstje)</div></div>
+                    <div class="img" style="height:200px"><span>foto BBQ-borden</span></div>
+                </div>
+            </div>
+            <div class="sec">
+                <div class="h2">Inschrijven</div>
+                <div class="grid" style="grid-template-columns:2fr 1fr;gap:30px;align-items:start">
+                    <div class="rel" style="background:#eee;border:1px solid #999;padding:24px"><span class="n pin">1</span>
+                        <div class="field"><div class="label">Masterclass *</div><div class="input sel"></div></div>
+                        <div class="grid g2" style="gap:16px">
+                            <div class="field"><div class="label">Voornaam *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Achternaam *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">E-mailadres *</div><div class="input" style="border:2px solid #333"></div><div style="font-size:12px;font-weight:bold;margin-top:4px">⚠ Vul een geldig e-mailadres in.</div></div>
+                            <div class="field"><div class="label">Telefoon (optioneel)</div><div class="input"></div></div>
+                        </div>
+                        <div class="field"><div class="label">Aantal personen *</div><div class="input sel" style="width:50%"></div></div>
+                        <div class="field"><div class="label">Ervaring met kamado *</div><div class="radio"><span>Geen</span><span>Een beetje</span><span>Veel</span></div></div>
+                        <div class="field"><div class="label">Dieetwensen / opmerkingen</div><div class="area"></div><div style="text-align:right;font-size:11px">0 / 500</div></div>
+                        <div class="field check">Ik ga akkoord met het gebruik van mijn gegevens *</div>
+                        <span class="btn fill">Inschrijven</span>
+                    </div>
+                    <div class="summary rel"><span class="n pin">2</span>
+                        <div class="h3">Jouw inschrijving</div>
+                        <div class="small" style="margin-top:12px">Masterclass</div><div class="line w80" style="background:#999"></div>
+                        <div class="small" style="margin-top:12px">Datum</div><div class="line w60" style="background:#999"></div>
+                        <div class="small" style="margin-top:12px">Aantal personen</div><div class="line w30" style="background:#999"></div>
+                        <div class="flex" style="border-top:1px solid #333;margin-top:16px;padding-top:12px"><b>TOTAAL</b><b>€ 285,-</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> Formulier met <b>method="post"</b>. PHP controleert alle velden via <b>$_POST</b>. Bij een fout: rode rand + melding onder het veld, ingevulde waarden blijven staan.</li>
+                <li><span class="n">2</span> Samenvatting (JavaScript): past zich direct aan als je een masterclass of het aantal personen kiest en rekent de totaalprijs uit. Blijft meeschuiven bij scrollen.</li>
+                <li>Op mobiel staat de samenvatting onder het formulier en staan alle velden onder elkaar.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     MASTERCLASS + BEVESTIGING – MOBIEL
+     ========================================================= -->
+<div class="wf" id="masterclass-mobiel">
+    <p class="wf-title">Formulier &amp; bevestiging – mobiel</p>
+    <p class="wf-sub">Kamado Breda · wireframe 375 px · masterclass.php → bevestiging.php</p>
+    <div class="wf-row">
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="sec">
+                <div class="h2">Inschrijven</div>
+                <div style="background:#eee;border:1px solid #999;padding:14px">
+                    <div class="field"><div class="label">Masterclass *</div><div class="input sel"></div></div>
+                    <div class="field"><div class="label">Voornaam *</div><div class="input"></div></div>
+                    <div class="field"><div class="label">Achternaam *</div><div class="input"></div></div>
+                    <div class="field"><div class="label">E-mailadres *</div><div class="input"></div></div>
+                    <div class="field"><div class="label">Telefoon</div><div class="input"></div></div>
+                    <div class="field"><div class="label">Aantal personen *</div><div class="input sel"></div></div>
+                    <div class="field"><div class="label">Ervaring *</div><div class="radio"><span>Geen</span><span>Beetje</span><span>Veel</span></div></div>
+                    <div class="field"><div class="label">Opmerkingen</div><div class="area" style="height:60px"></div></div>
+                    <div class="field check">Akkoord *</div>
+                    <span class="btn fill" style="display:block;text-align:center">Inschrijven</span>
+                </div>
+                <div class="summary" style="margin-top:16px"><div class="h3">Jouw inschrijving</div><div class="flex"><b>TOTAAL</b><b>€ 285,-</b></div></div>
+            </div>
+        </div>
+        <div style="font-size:40px;align-self:center">→</div>
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="sec center rel"><span class="n pin" style="right:8px">1</span>
+                <div class="check-ok">✓</div>
+                <div class="h1">Bedankt, {voornaam}!</div>
+                <div class="line w90" style="margin:8px auto"></div><div class="line w70" style="margin:8px auto"></div>
+                <div class="table" style="text-align:left;background:#fff;padding:0 10px;margin:16px 0;border:1px solid #999">
+                    <div><b>Masterclass</b>{titel}</div><div><b>Datum</b>{datum}</div><div><b>Tijd</b>{tijd}</div><div><b>Naam</b>{naam}</div><div><b>Personen</b>{aantal}</div><div><b>Totaal</b>{prijs × aantal}</div>
+                </div>
+                <span class="btn fill" style="display:block">Terug naar home</span>
+                <span class="btn" style="display:block;margin-top:8px">Bekijk de kamado's</span>
+            </div>
+            <div class="footer"><div><div class="logo"><i></i></div></div></div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> <b>bevestiging.php</b> is dynamisch: alles tussen { } wordt door PHP ingevuld met wat de bezoeker net heeft ingevuld. Wie deze pagina opent zonder in te schrijven, gaat terug naar het formulier.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ?los=home-desktop → alleen die wireframe tonen (gebruikt voor het exporteren naar PNG)
+    const los = new URLSearchParams(location.search).get('los');
+    if (los) {
+        document.querySelectorAll('.wf').forEach(function (wf) {
+            if (wf.id !== los) {
+                wf.style.display = 'none';
+            }
+        });
+        document.querySelector('#' + los).style.marginBottom = '0';
+    }
+</script>
+</body>
+</html>

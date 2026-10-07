@@ -1,0 +1,3 @@
+# Eigen 404-pagina op Apache-hosting.
+# Staat de site in een submap (bijv. /kamado/)? Pas dan het pad aan: /kamado/404.php
+ErrorDocument 404 /404.php

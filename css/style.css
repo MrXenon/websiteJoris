@@ -1,0 +1,1254 @@
+/* =========================================================
+   Kamado Breda – stylesheet
+   Mobile first: eerst de stijl voor mobiel,
+   daarna met @media aanpassingen voor tablet en desktop.
+   ========================================================= */
+
+/* ---------- Variabelen (zie docs/stijlgids.md) ---------- */
+:root {
+    --houtskool: #16191f;
+    --antraciet: #232833;
+    --blauw: #1f3f8f;
+    --blauw-licht: #3a62c4;
+    --oranje: #e8862a;
+    --oranje-donker: #c96d17;
+    --creme: #f4ede3;
+    --wit: #ffffff;
+    --tekst: #1d1f24;
+    --grijs: #6b6f78;
+    --rood: #c0392b;
+    --groen: #2e8b57;
+
+    --font-kop: 'Oswald', Impact, sans-serif;
+    --font-tekst: 'Source Sans 3', Arial, sans-serif;
+
+    --radius: 8px;
+    --schaduw: 0 6px 24px rgba(0, 0, 0, 0.08);
+    --header-hoogte: 76px;
+}
+
+/* ---------- Basis ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-hoogte) + 16px);
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-tekst);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--tekst);
+    background: var(--wit);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--blauw);
+}
+
+a:hover {
+    color: var(--blauw-licht);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-kop);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+}
+
+h1 {
+    font-size: 2.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+h2 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+.container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.narrow {
+    max-width: 780px;
+}
+
+.center {
+    text-align: center;
+}
+
+.eyebrow {
+    font-family: var(--font-kop);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    color: var(--oranje);
+    margin-bottom: 0.4em;
+}
+
+.lead {
+    font-size: 1.15rem;
+}
+
+.note {
+    font-size: 0.9rem;
+    color: var(--grijs);
+}
+
+/* ---------- Knoppen ---------- */
+.btn {
+    display: inline-block;
+    padding: 0.8em 1.5em;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    font-family: var(--font-kop);
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--oranje);
+    color: var(--houtskool);
+}
+
+.btn-primary:hover {
+    background: var(--oranje-donker);
+    color: var(--houtskool);
+}
+
+.btn-outline {
+    border-color: var(--blauw);
+    color: var(--blauw);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--blauw);
+    color: var(--wit);
+}
+
+.btn-ghost {
+    border-color: var(--creme);
+    color: var(--creme);
+}
+
+.btn-ghost:hover {
+    background: var(--creme);
+    color: var(--houtskool);
+}
+
+.btn-small {
+    padding: 0.5em 1.1em;
+    font-size: 0.9rem;
+}
+
+.btn-large {
+    padding: 1em 2.2em;
+    font-size: 1.1rem;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--houtskool);
+    transition: box-shadow 0.3s;
+}
+
+.site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-hoogte);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--creme);
+    text-decoration: none;
+    font-family: var(--font-kop);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.logo:hover {
+    color: var(--wit);
+}
+
+.logo img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.logo strong {
+    color: var(--oranje);
+}
+
+/* Hamburger (3 streepjes) */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    background: var(--creme);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Streepjes worden een kruisje */
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobiel menu: verborgen tot je op de hamburger klikt */
+.main-nav {
+    position: absolute;
+    top: var(--header-hoogte);
+    left: 0;
+    right: 0;
+    background: var(--houtskool);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: none;
+}
+
+.main-nav.open {
+    display: block;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 12px 20px 24px;
+}
+
+.main-nav a:not(.btn) {
+    display: block;
+    padding: 12px 0;
+    color: var(--creme);
+    text-decoration: none;
+    font-family: var(--font-kop);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.main-nav a:not(.btn):hover,
+.main-nav a.active {
+    color: var(--oranje);
+}
+
+.main-nav .btn {
+    margin-top: 16px;
+}
+
+/* ---------- Hero (home) ---------- */
+.hero {
+    position: relative;
+    min-height: min(78vh, 720px);
+    display: flex;
+    align-items: center;
+    color: var(--creme);
+    background: var(--houtskool) url('../images/winkel-kamado-breda.jpg') center 30% / cover no-repeat;
+}
+
+/* Donkere laag over de foto zodat de tekst leesbaar is */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(22, 25, 31, 0.92) 0%, rgba(22, 25, 31, 0.65) 55%, rgba(22, 25, 31, 0.2) 100%);
+}
+
+.hero-content {
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    max-width: 12em;
+}
+
+.hero-text {
+    max-width: 32em;
+    font-size: 1.15rem;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.hero-buttons.center {
+    justify-content: center;
+}
+
+/* ---------- Paginatitel (subpagina's) ---------- */
+.page-hero {
+    position: relative;
+    background: var(--houtskool);
+    color: var(--creme);
+    padding: 56px 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.page-hero-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 25, 31, 0.78);
+}
+
+.page-hero .container {
+    position: relative;
+}
+
+.page-hero p:last-child {
+    max-width: 40em;
+    opacity: 0.9;
+}
+
+/* ---------- USP balk ---------- */
+.usps {
+    background: var(--blauw);
+    color: var(--wit);
+    padding: 32px 0;
+}
+
+.usp-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.usp {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    column-gap: 16px;
+}
+
+.usp-icon {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--oranje);
+    color: var(--houtskool);
+    font-size: 1.4rem;
+}
+
+.usp h3 {
+    margin: 0;
+}
+
+.usp p {
+    margin: 0;
+    opacity: 0.85;
+}
+
+/* ---------- Secties ---------- */
+.section {
+    padding: 56px 0;
+}
+
+.section-light {
+    background: var(--creme);
+}
+
+.section-dark {
+    background: var(--houtskool);
+    color: var(--creme);
+}
+
+.section-head {
+    max-width: 640px;
+    margin-bottom: 32px;
+}
+
+/* ---------- Grids ---------- */
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+/* ---------- Kaarten ---------- */
+.card {
+    display: flex;
+    flex-direction: column;
+    background: var(--wit);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--schaduw);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+
+.section-dark .card {
+    background: var(--antraciet);
+    color: var(--creme);
+}
+
+.card-image {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--houtskool);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+/* Kamado-foto's zijn staand: hoger vak zodat de hele kamado te zien is */
+.product-card .card-image {
+    aspect-ratio: 4 / 5;
+}
+
+.product-card .card-image img {
+    object-position: center top;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.card-body .btn {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: var(--blauw);
+    color: var(--wit);
+    font-family: var(--font-kop);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.badge-inline {
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.price {
+    font-family: var(--font-kop);
+    font-size: 1.4rem;
+    color: var(--oranje-donker);
+    margin-bottom: 16px;
+}
+
+.section-dark .price {
+    color: var(--oranje);
+}
+
+.price small {
+    font-size: 0.9rem;
+    font-family: var(--font-tekst);
+    color: var(--grijs);
+}
+
+.price-big {
+    font-size: 2rem;
+}
+
+/* Masterclass kaart */
+.date-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 64px;
+    padding: 6px 0;
+    border-radius: 6px;
+    background: var(--oranje);
+    color: var(--houtskool);
+    text-align: center;
+    font-family: var(--font-kop);
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.date-badge strong {
+    display: block;
+    font-size: 1.6rem;
+}
+
+.meta {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blauw-licht);
+    margin-bottom: 6px;
+}
+
+.class-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.class-footer .price {
+    margin: 0;
+}
+
+.spots {
+    font-size: 0.85rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: rgba(58, 98, 196, 0.2);
+}
+
+.spots-low {
+    background: rgba(232, 134, 42, 0.25);
+}
+
+/* ---------- Split (foto + tekst naast elkaar) ---------- */
+.split {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+}
+
+.split-image img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--schaduw);
+}
+
+blockquote {
+    margin: 24px 0;
+    padding: 16px 20px;
+    border-left: 4px solid var(--oranje);
+    background: var(--creme);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-style: normal;
+    color: var(--grijs);
+}
+
+.check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+}
+
+.check-list li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 8px;
+}
+
+.check-list li::before {
+    content: '\2714';
+    position: absolute;
+    left: 0;
+    color: var(--oranje);
+}
+
+/* ---------- Call to action ---------- */
+.cta {
+    background: var(--oranje);
+    padding: 48px 0;
+    text-align: center;
+}
+
+.cta .btn-primary {
+    background: var(--houtskool);
+    color: var(--creme);
+}
+
+.cta .btn-primary:hover {
+    background: var(--antraciet);
+}
+
+/* ---------- Fotogalerij ---------- */
+.gallery-main {
+    position: relative;
+    background: var(--houtskool);
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: opacity 0.15s;
+}
+
+.gallery-image.fade {
+    opacity: 0;
+}
+
+.gallery-btn,
+.gallery-zoom {
+    position: absolute;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(22, 25, 31, 0.7);
+    color: var(--creme);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.gallery-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+}
+
+.gallery-btn:hover,
+.gallery-zoom:hover {
+    background: var(--oranje);
+    color: var(--houtskool);
+}
+
+.gallery-prev {
+    left: 12px;
+}
+
+.gallery-next {
+    right: 12px;
+}
+
+.gallery-zoom {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+}
+
+.gallery-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    margin: 0;
+    padding: 2px 12px;
+    border-radius: 20px;
+    background: rgba(22, 25, 31, 0.7);
+    color: var(--creme);
+    font-size: 0.9rem;
+}
+
+.gallery-thumbs {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0 0 6px;
+    overflow-x: auto;
+}
+
+.gallery-thumb {
+    display: block;
+    width: 84px;
+    height: 64px;
+    padding: 0;
+    border: 3px solid transparent;
+    border-radius: 6px;
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+
+.gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumb:hover,
+.gallery-thumb.active {
+    opacity: 1;
+}
+
+.gallery-thumb.active {
+    border-color: var(--oranje);
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.92);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 4px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: 0;
+    color: var(--wit);
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* ---------- Productdetail ---------- */
+.breadcrumb {
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    color: var(--grijs);
+}
+
+.product-layout,
+.product-bottom {
+    display: grid;
+    gap: 32px;
+}
+
+.product-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.specs {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--wit);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.specs th,
+.specs td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e6e1d8;
+    vertical-align: top;
+}
+
+.specs th {
+    width: 45%;
+    font-weight: 600;
+}
+
+.specs thead th {
+    background: var(--houtskool);
+    color: var(--creme);
+}
+
+.specs .total-row {
+    font-family: var(--font-kop);
+    font-size: 1.2rem;
+    background: var(--creme);
+}
+
+.credits td {
+    word-break: break-word;
+}
+
+/* ---------- Formulier ---------- */
+.form-layout {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+}
+
+.form {
+    background: var(--creme);
+    padding: 24px;
+    border-radius: var(--radius);
+}
+
+.field {
+    margin: 0 0 20px;
+    padding: 0;
+    border: 0;
+}
+
+.field-row {
+    display: grid;
+    gap: 0 20px;
+}
+
+label,
+legend {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+label small {
+    font-weight: 400;
+    color: var(--grijs);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #d8d0c3;
+    border-radius: 4px;
+    background: var(--wit);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--tekst);
+    transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--blauw);
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+
+.radio,
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.radio input,
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    margin: 3px 0 0;
+    accent-color: var(--blauw);
+    flex-shrink: 0;
+}
+
+.char-count {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    color: var(--grijs);
+    text-align: right;
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+    border-color: var(--rood);
+}
+
+.field-error {
+    margin: 6px 0 0;
+    color: var(--rood);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.alert {
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+}
+
+.alert-error {
+    background: #fbe9e7;
+    border-left: 4px solid var(--rood);
+}
+
+/* Honeypot onzichtbaar maken */
+.hp {
+    position: absolute;
+    left: -9999px;
+}
+
+/* Samenvatting naast het formulier */
+.summary {
+    background: var(--houtskool);
+    color: var(--creme);
+    padding: 24px;
+    border-radius: var(--radius);
+}
+
+.summary dl {
+    margin: 0 0 16px;
+}
+
+.summary dt {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+}
+
+.summary dd {
+    margin: 0 0 12px;
+    font-weight: 600;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-family: var(--font-kop);
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+.summary-total span {
+    color: var(--oranje);
+}
+
+.summary .note {
+    color: var(--creme);
+    opacity: 0.7;
+    margin: 0;
+}
+
+/* ---------- Bevestiging ---------- */
+.confirmation {
+    text-align: center;
+}
+
+.confirmation .specs {
+    text-align: left;
+    margin: 32px 0;
+    box-shadow: var(--schaduw);
+}
+
+.confirmation-icon {
+    display: grid;
+    place-items: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--groen);
+    color: var(--wit);
+    font-size: 2.5rem;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    background: var(--houtskool);
+    color: var(--creme);
+    padding-top: 48px;
+}
+
+.footer-grid {
+    display: grid;
+    gap: 32px;
+    padding-bottom: 40px;
+}
+
+.footer-logo {
+    width: 110px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.site-footer h3 {
+    color: var(--oranje);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.site-footer ul {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+}
+
+.site-footer a {
+    color: var(--creme);
+}
+
+.site-footer a:hover {
+    color: var(--oranje);
+}
+
+.site-footer address {
+    font-style: normal;
+    margin-bottom: 12px;
+}
+
+.openingstijden span {
+    display: inline-block;
+    width: 90px;
+    opacity: 0.7;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* =========================================================
+   Tablet (vanaf 700px)
+   ========================================================= */
+@media (min-width: 700px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .usp-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .field-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery-thumb {
+        width: 110px;
+        height: 82px;
+    }
+}
+
+/* =========================================================
+   Desktop (vanaf 1000px)
+   ========================================================= */
+@media (min-width: 1000px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 2.3rem;
+    }
+
+    h3 {
+        font-size: 1.35rem;
+    }
+
+    body {
+        font-size: 1.05rem;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+
+    .page-hero {
+        padding: 80px 0;
+    }
+
+    .hero h1 {
+        font-size: 4.2rem;
+    }
+
+    /* Menu naast het logo, hamburger weg */
+    .menu-toggle {
+        display: none;
+    }
+
+    .main-nav {
+        position: static;
+        display: block;
+        background: none;
+        border: 0;
+    }
+
+    .main-nav ul {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        padding: 0;
+    }
+
+    .main-nav a:not(.btn) {
+        padding: 6px 0;
+        border-bottom: 2px solid transparent;
+    }
+
+    .main-nav a.active {
+        border-bottom-color: var(--oranje);
+    }
+
+    .main-nav .btn {
+        margin-top: 0;
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .split {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+    }
+
+    .product-layout {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 56px;
+    }
+
+    .product-bottom {
+        grid-template-columns: 1fr 1.3fr;
+        gap: 56px;
+    }
+
+    .form-layout {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .form {
+        padding: 40px;
+    }
+
+    .summary {
+        position: sticky;
+        top: calc(var(--header-hoogte) + 24px);
+    }
+
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+}
