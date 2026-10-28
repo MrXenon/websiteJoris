@@ -1,0 +1,22 @@
+{
+    "name": "kevin/test",
+    "description": "None",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kevin\\Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kevin Schuit",
+            "email": "info@kevinschuit.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.28",
+        "google/apiclient": "2.17"
+    }
+}

@@ -1,0 +1,2 @@
+# Deze bestanden worden alleen via index.php geladen, nooit direct
+Require all denied

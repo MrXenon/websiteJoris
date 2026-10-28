@@ -1,0 +1,2568 @@
+
+/* =========================================================
+   Kamado Breda – stylesheet
+   Mobile first: eerst de stijl voor mobiel,
+   daarna met @media aanpassingen voor tablet en desktop.
+   Kleuren en lettertypes: zie docs/stijlgids.md
+   ========================================================= */
+
+/* ---------- Lettertypes (staan op onze eigen server) ---------- */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 500 700;
+    font-display: swap;
+    src: url('../fonts/oswald-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../fonts/source-sans-3-latin.woff2') format('woff2');
+}
+
+/* ---------- Variabelen ---------- */
+:root {
+    --houtskool: #16191f;
+    --antraciet: #232833;
+    --antraciet-licht: #2e3441;
+    --blauw: #1f3f8f;
+    --blauw-licht: #3a62c4;
+    --oranje: #e8862a;
+    --oranje-donker: #c96d17;
+    --creme: #f4ede3;
+    --creme-licht: #faf7f2;
+    --wit: #ffffff;
+    --tekst: #1d1f24;
+    --grijs: #6b6f78;
+    --lijn: #e7e1d7;
+    --rood: #c0392b;
+    --groen: #2e8b57;
+
+    --font-kop: 'Oswald', Impact, 'Arial Narrow', sans-serif;
+    --font-tekst: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+
+    --radius-klein: 10px;
+    --radius: 16px;
+    --radius-groot: 24px;
+    --schaduw: 0 1px 2px rgba(22, 25, 31, 0.06), 0 8px 24px rgba(22, 25, 31, 0.08);
+    --schaduw-hover: 0 2px 4px rgba(22, 25, 31, 0.08), 0 20px 40px rgba(22, 25, 31, 0.16);
+    --header-hoogte: 72px;
+    --overgang: 0.25s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* ---------- Basis ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-hoogte) + 16px);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-tekst);
+    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+    line-height: 1.65;
+    color: var(--tekst);
+    background: var(--wit);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+picture {
+    display: contents;
+}
+
+a {
+    color: var(--blauw);
+    text-underline-offset: 0.2em;
+}
+
+a:hover {
+    color: var(--blauw-licht);
+}
+
+:focus-visible {
+    outline: 3px solid var(--oranje);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-kop);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 0.5em;
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 3.6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+h2 {
+    font-size: clamp(1.7rem, 1.4rem + 1.4vw, 2.4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.35rem);
+    font-weight: 500;
+}
+
+p {
+    margin: 0 0 1em;
+    text-wrap: pretty;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.narrow {
+    max-width: 800px;
+}
+
+.center {
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-kop);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--oranje-donker);
+    margin-bottom: 0.8em;
+}
+
+.eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+}
+
+.section-dark .eyebrow,
+.page-hero .eyebrow,
+.hero .eyebrow {
+    color: var(--oranje);
+}
+
+.lead {
+    font-size: 1.2rem;
+    line-height: 1.55;
+}
+
+.note {
+    font-size: 0.9rem;
+    color: var(--grijs);
+}
+
+.text-fire {
+    background: linear-gradient(90deg, var(--oranje) 0%, #f3b05b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.skip-link {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 300;
+    padding: 10px 16px;
+    border-radius: var(--radius-klein);
+    background: var(--oranje);
+    color: var(--houtskool);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
+/* ---------- Knoppen ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.8em 1.4em;
+    border: 2px solid transparent;
+    border-radius: var(--radius-klein);
+    font-family: var(--font-kop);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--overgang), color var(--overgang), border-color var(--overgang),
+                transform var(--overgang), box-shadow var(--overgang);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--oranje);
+    color: var(--houtskool);
+    box-shadow: 0 6px 18px -6px rgba(232, 134, 42, 0.6);
+}
+
+.btn-primary:hover {
+    background: var(--oranje-donker);
+    color: var(--houtskool);
+    box-shadow: 0 10px 24px -8px rgba(232, 134, 42, 0.7);
+}
+
+.btn-outline {
+    border-color: currentColor;
+    color: var(--blauw);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--blauw);
+    border-color: var(--blauw);
+    color: var(--wit);
+}
+
+.section-dark .btn-outline {
+    color: var(--creme);
+}
+
+.btn-ghost {
+    border-color: rgba(244, 237, 227, 0.5);
+    color: var(--creme);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(6px);
+}
+
+.btn-ghost:hover {
+    background: var(--creme);
+    border-color: var(--creme);
+    color: var(--houtskool);
+}
+
+.btn-dark {
+    background: var(--houtskool);
+    color: var(--creme);
+}
+
+.btn-dark:hover {
+    background: var(--antraciet);
+    color: var(--wit);
+}
+
+.btn-small {
+    padding: 0.55em 1em;
+    font-size: 0.875rem;
+}
+
+.btn-large {
+    padding: 0.95em 1.8em;
+    font-size: 1.05rem;
+}
+
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/* Laden: knop iets doorzichtig met een draaiend rondje */
+.btn.loading {
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+.btn.loading svg {
+    display: none;
+}
+
+.btn.loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: draaien 0.6s linear infinite;
+}
+
+@keyframes draaien {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-kop);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.link-arrow::after {
+    content: '\2192';
+    transition: transform var(--overgang);
+}
+
+.link-arrow:hover::after {
+    transform: translateX(4px);
+}
+
+.link-back::after {
+    display: none;
+}
+
+.link-back::before {
+    content: '\2190';
+    transition: transform var(--overgang);
+}
+
+.link-back:hover::before {
+    transform: translateX(-4px);
+}
+
+.section-dark .link-arrow {
+    color: var(--oranje);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--houtskool);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: box-shadow 0.3s, background 0.3s;
+}
+
+.site-header.scrolled {
+    background: rgba(22, 25, 31, 0.96);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: var(--header-hoogte);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: auto;
+    color: var(--creme);
+    text-decoration: none;
+    font-family: var(--font-kop);
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.logo:hover {
+    color: var(--wit);
+}
+
+.logo img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: transform 0.4s;
+}
+
+.logo:hover img {
+    transform: rotate(-8deg) scale(1.05);
+}
+
+.logo strong {
+    color: var(--oranje);
+    font-weight: 700;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cart-link {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--creme);
+    transition: background var(--overgang), color var(--overgang);
+}
+
+.cart-link:hover,
+.cart-link.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--oranje);
+}
+
+.cart-count {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: var(--oranje);
+    color: var(--houtskool);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+}
+
+.cart-count.bump {
+    animation: hupje 0.45s ease;
+}
+
+@keyframes hupje {
+    40% {
+        transform: scale(1.4);
+    }
+}
+
+/* Hamburger (3 streepjes) */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    background: var(--creme);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Streepjes worden een kruisje */
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobiel menu: verborgen tot je op de hamburger klikt */
+.main-nav {
+    position: absolute;
+    top: var(--header-hoogte);
+    left: 0;
+    right: 0;
+    background: var(--houtskool);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.35);
+    display: none;
+}
+
+.main-nav.open {
+    display: block;
+    animation: inschuiven 0.25s ease;
+}
+
+@keyframes inschuiven {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 8px 20px 24px;
+}
+
+.main-nav a:not(.btn) {
+    display: block;
+    padding: 14px 0;
+    color: var(--creme);
+    text-decoration: none;
+    font-family: var(--font-kop);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.main-nav a:not(.btn):hover,
+.main-nav a.active {
+    color: var(--oranje);
+}
+
+.main-nav .btn {
+    margin-top: 20px;
+}
+
+/* ---------- Meldingen ---------- */
+.alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-klein);
+    margin-bottom: 24px;
+}
+
+.alert-error {
+    background: #fbe9e7;
+    border-left: 4px solid var(--rood);
+}
+
+.alert-succes {
+    background: #e7f4ec;
+    border-left: 4px solid var(--groen);
+}
+
+.alert-flash {
+    margin: 20px 0 0;
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.alert-flash.hide {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+}
+
+/* Pop-up melding rechtsonder ("toegevoegd aan winkelwagen") */
+.toast {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 250;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px 14px 20px;
+    border-radius: var(--radius);
+    background: var(--houtskool);
+    color: var(--creme);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.toast p {
+    margin: 0;
+}
+
+.toast p::before {
+    content: '\2713';
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--groen);
+    color: var(--wit);
+    font-size: 0.8rem;
+}
+
+/* ---------- Hero (home) ---------- */
+.hero {
+    position: relative;
+    min-height: min(88vh, 780px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: var(--creme);
+    background-color: var(--houtskool);
+    background-image: url('../images/winkel-kamado-breda.jpg');
+    background-image: image-set(url('../images/winkel-kamado-breda.webp') type('image/webp'),
+                                url('../images/winkel-kamado-breda.jpg') type('image/jpeg'));
+    background-position: center 30%;
+    background-size: cover;
+}
+
+/* Donkere laag over de foto zodat de tekst leesbaar is, met een warme gloed van het vuur */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 15% 110%, rgba(232, 134, 42, 0.35) 0%, transparent 55%),
+        linear-gradient(90deg, rgba(22, 25, 31, 0.94) 0%, rgba(22, 25, 31, 0.7) 55%, rgba(22, 25, 31, 0.25) 100%);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;
+    background: linear-gradient(transparent, rgba(22, 25, 31, 0.6));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.hero h1 {
+    font-size: clamp(2.8rem, 1.8rem + 5vw, 5.2rem);
+    line-height: 0.98;
+    max-width: 12em;
+    animation: omhoog 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.hero-text {
+    max-width: 34em;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    animation: omhoog 0.8s 0.1s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.hero .hero-buttons {
+    animation: omhoog 0.8s 0.2s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.hero-buttons.center {
+    justify-content: center;
+}
+
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    list-style: none;
+    margin: 40px 0 0;
+    padding: 0;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    animation: omhoog 0.8s 0.3s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.hero-trust li::before {
+    content: '\2713';
+    margin-right: 8px;
+    color: var(--oranje);
+    font-weight: 700;
+}
+
+@keyframes omhoog {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+}
+
+/* ---------- Paginatitel (subpagina's) ---------- */
+.page-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--houtskool);
+    color: var(--creme);
+    padding: 64px 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    right: -10%;
+    bottom: -60%;
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(232, 134, 42, 0.22) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.page-hero-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(22, 25, 31, 0.92) 0%, rgba(22, 25, 31, 0.7) 100%);
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero h1 {
+    margin-bottom: 0.3em;
+}
+
+.page-hero p:last-child {
+    max-width: 40em;
+    margin-bottom: 0;
+    opacity: 0.85;
+    font-size: 1.1rem;
+}
+
+/* ---------- USP balk ---------- */
+.usps {
+    position: relative;
+    background: linear-gradient(135deg, var(--blauw) 0%, #17306f 100%);
+    color: var(--wit);
+    padding: 36px 0;
+}
+
+.usp-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.usp {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    column-gap: 16px;
+    align-items: center;
+}
+
+.usp-icon {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--oranje);
+}
+
+.usp-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.usp h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.usp p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.95rem;
+}
+
+/* ---------- Secties ---------- */
+.section {
+    padding: 64px 0;
+}
+
+.section-tight {
+    padding: 40px 0 56px;
+}
+
+.section-light {
+    background: var(--creme-licht);
+    border-top: 1px solid var(--lijn);
+    border-bottom: 1px solid var(--lijn);
+}
+
+.section-dark {
+    position: relative;
+    background: var(--houtskool);
+    color: var(--creme);
+}
+
+.section-head {
+    max-width: 640px;
+    margin-bottom: 40px;
+}
+
+.section-head p:last-child {
+    margin-bottom: 0;
+}
+
+.section-head-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 40px;
+    max-width: none;
+}
+
+.section-head-row > div {
+    max-width: 640px;
+}
+
+/* ---------- Grids ---------- */
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+.grid + .note {
+    margin: 28px 0 0;
+}
+
+/* ---------- Kaarten ---------- */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--wit);
+    border: 1px solid var(--lijn);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--schaduw);
+    transition: transform var(--overgang), box-shadow var(--overgang), border-color var(--overgang);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--schaduw-hover);
+}
+
+.section-dark .card {
+    background: var(--antraciet);
+    border-color: rgba(255, 255, 255, 0.06);
+    color: var(--creme);
+}
+
+.card-image {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--houtskool);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Kamado-foto's zijn staand: hoger vak zodat de hele kamado te zien is */
+.product-card .card-image {
+    aspect-ratio: 4 / 4.4;
+}
+
+.product-card .card-image img {
+    object-position: center top;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 22px;
+}
+
+.card-body h3 {
+    margin-bottom: 0.35em;
+}
+
+.card-body > p {
+    color: var(--grijs);
+}
+
+.section-dark .card-body > p {
+    color: rgba(244, 237, 227, 0.75);
+}
+
+.card-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    color: var(--blauw);
+}
+
+.card-body > .btn {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.card-footer {
+    margin-top: auto;
+    padding-top: 8px;
+}
+
+.card-footer .price {
+    margin-bottom: 14px;
+}
+
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.card-actions .btn-outline {
+    color: var(--tekst);
+    border-color: var(--lijn);
+}
+
+.card-actions .btn-outline:hover {
+    border-color: var(--blauw);
+    color: var(--wit);
+}
+
+.badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--blauw);
+    color: var(--wit);
+    font-family: var(--font-kop);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 12px rgba(31, 63, 143, 0.35);
+}
+
+.badge-inline {
+    position: static;
+    display: inline-block;
+    margin-bottom: 14px;
+}
+
+.price {
+    font-family: var(--font-kop);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--houtskool);
+    margin-bottom: 16px;
+}
+
+.section-dark .price {
+    color: var(--oranje);
+}
+
+.price small {
+    font-size: 0.85rem;
+    font-family: var(--font-tekst);
+    font-weight: 400;
+    color: var(--grijs);
+}
+
+.price-big {
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+}
+
+/* Bestelknop op een kaart */
+.add-to-cart {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+}
+
+.qty input {
+    width: 76px;
+    height: 100%;
+    min-height: 48px;
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Masterclass kaart */
+.date-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 62px;
+    padding: 8px 0 6px;
+    border-radius: 12px;
+    background: var(--oranje);
+    color: var(--houtskool);
+    text-align: center;
+    font-family: var(--font-kop);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.date-badge strong {
+    display: block;
+    font-size: 1.6rem;
+}
+
+.meta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blauw-licht);
+    margin-bottom: 6px;
+}
+
+.section-dark .meta {
+    color: #8fa8e6;
+}
+
+.class-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.class-footer .price {
+    margin: 0;
+}
+
+.class-card .btn {
+    margin-top: 16px;
+}
+
+.spots {
+    font-size: 0.85rem;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: rgba(58, 98, 196, 0.2);
+}
+
+.spots-low {
+    background: rgba(232, 134, 42, 0.25);
+}
+
+/* ---------- Split (foto + tekst naast elkaar) ---------- */
+.split {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+}
+
+.split-image img {
+    width: 100%;
+    border-radius: var(--radius-groot);
+    box-shadow: var(--schaduw-hover);
+}
+
+blockquote {
+    margin: 28px 0;
+    padding: 20px 24px;
+    border-left: 4px solid var(--oranje);
+    border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+    background: var(--creme-licht);
+    font-size: 1.15rem;
+    font-style: italic;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-style: normal;
+    color: var(--grijs);
+}
+
+.check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+}
+
+.check-list li {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 10px;
+}
+
+.check-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(232, 134, 42, 0.15);
+    color: var(--oranje-donker);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ---------- Call to action ---------- */
+.cta {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, var(--oranje) 0%, #f0a24e 100%);
+    padding: 64px 0;
+    text-align: center;
+}
+
+.cta::before {
+    content: '';
+    position: absolute;
+    inset: -50% -10% auto auto;
+    width: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.cta-inner {
+    position: relative;
+}
+
+.cta p {
+    font-size: 1.15rem;
+}
+
+/* ---------- Fotogalerij ---------- */
+.gallery-main {
+    position: relative;
+    background: var(--houtskool);
+    border-radius: var(--radius-groot);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: opacity 0.15s;
+}
+
+.gallery-image.fade {
+    opacity: 0;
+}
+
+.gallery-btn,
+.gallery-zoom {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    background: rgba(22, 25, 31, 0.6);
+    backdrop-filter: blur(6px);
+    color: var(--creme);
+    cursor: pointer;
+    transition: background var(--overgang), color var(--overgang);
+}
+
+.gallery-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    font-size: 1.05rem;
+}
+
+.gallery-btn:hover,
+.gallery-zoom:hover {
+    background: var(--oranje);
+    color: var(--houtskool);
+}
+
+.gallery-prev {
+    left: 14px;
+}
+
+.gallery-next {
+    right: 14px;
+}
+
+.gallery-zoom {
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+}
+
+.gallery-counter {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    margin: 0;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: rgba(22, 25, 31, 0.6);
+    backdrop-filter: blur(6px);
+    color: var(--creme);
+    font-size: 0.85rem;
+}
+
+.gallery-thumbs {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 2px 2px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+}
+
+.gallery-thumbs li {
+    scroll-snap-align: start;
+}
+
+.gallery-thumb {
+    display: block;
+    width: 84px;
+    height: 64px;
+    padding: 0;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+
+.gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumb:hover,
+.gallery-thumb.active {
+    opacity: 1;
+}
+
+.gallery-thumb.active {
+    border-color: var(--oranje);
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(10, 11, 14, 0.94);
+    backdrop-filter: blur(4px);
+}
+
+.lightbox.open {
+    display: flex;
+    animation: infaden 0.2s ease;
+}
+
+@keyframes infaden {
+    from {
+        opacity: 0;
+    }
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--radius-klein);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: 0;
+    color: var(--wit);
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* ---------- Productdetail ---------- */
+.breadcrumb {
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    color: var(--grijs);
+}
+
+.breadcrumb a {
+    color: var(--grijs);
+}
+
+.breadcrumb a:hover {
+    color: var(--blauw);
+}
+
+.product-layout,
+.product-bottom {
+    display: grid;
+    gap: 40px;
+}
+
+/* Grid-kolommen mogen smaller worden dan hun inhoud (anders duwt de foto-strook de pagina breder) */
+.product-layout > *,
+.product-bottom > *,
+.checkout-layout > *,
+.form-layout > * {
+    min-width: 0;
+}
+
+.product-info h1 {
+    font-size: clamp(2rem, 1.6rem + 2vw, 3rem);
+}
+
+.buy-box {
+    margin: 28px 0 20px;
+    padding: 20px;
+    border: 1px solid var(--lijn);
+    border-radius: var(--radius);
+    background: var(--creme-licht);
+}
+
+.buy-box .add-to-cart {
+    margin-bottom: 16px;
+}
+
+.buy-box .add-to-cart .btn {
+    flex: 1;
+}
+
+.buy-box-usps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.95rem;
+}
+
+.buy-box-usps li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.buy-box-usps li:not(:first-child)::before {
+    content: '\2713';
+    width: 10px;
+    color: var(--groen);
+    font-weight: 700;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-green {
+    background: var(--groen);
+    box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.18);
+}
+
+.specs {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--wit);
+    border: 1px solid var(--lijn);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.specs th,
+.specs td {
+    padding: 13px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--lijn);
+    vertical-align: top;
+}
+
+.specs tr:last-child th,
+.specs tr:last-child td {
+    border-bottom: 0;
+}
+
+.specs th {
+    width: 45%;
+    font-weight: 600;
+}
+
+.specs thead th {
+    background: var(--houtskool);
+    color: var(--creme);
+    font-family: var(--font-kop);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+}
+
+.specs .num {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.specs .total-row {
+    font-family: var(--font-kop);
+    font-size: 1.2rem;
+    background: var(--creme-licht);
+}
+
+.specs .total-row small {
+    font-family: var(--font-tekst);
+    font-size: 0.85rem;
+    color: var(--grijs);
+}
+
+.credits td {
+    word-break: break-word;
+}
+
+/* ---------- Formulieren ---------- */
+.form-layout,
+.checkout-layout {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+}
+
+.form {
+    background: var(--creme-licht);
+    border: 1px solid var(--lijn);
+    padding: 24px;
+    border-radius: var(--radius-groot);
+}
+
+.form-section {
+    margin: 0 0 28px;
+    padding: 0;
+    border: 0;
+}
+
+.form-section > legend {
+    margin-bottom: 16px;
+    font-family: var(--font-kop);
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field {
+    margin: 0 0 20px;
+    padding: 0;
+    border: 0;
+}
+
+.field-row {
+    display: grid;
+    gap: 0 20px;
+}
+
+label,
+legend {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+label small {
+    font-weight: 400;
+    color: var(--grijs);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #d8d0c3;
+    border-radius: var(--radius-klein);
+    background: var(--wit);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--tekst);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #bfb4a3;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--blauw);
+    box-shadow: 0 0 0 4px rgba(31, 63, 143, 0.15);
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+
+.radio,
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.radio input,
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    margin: 3px 0 0;
+    accent-color: var(--blauw);
+    flex-shrink: 0;
+}
+
+/* Grote keuzeblokken (bezorgen/afhalen, betaalwijze) */
+.choice-group {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin: 0;
+    padding: 16px 18px;
+    border: 1.5px solid #d8d0c3;
+    border-radius: var(--radius);
+    background: var(--wit);
+    font-weight: 400;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.choice:hover {
+    border-color: #bfb4a3;
+}
+
+.choice:has(input:checked) {
+    border-color: var(--blauw);
+    box-shadow: 0 0 0 3px rgba(31, 63, 143, 0.12);
+}
+
+.choice input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    accent-color: var(--blauw);
+    flex-shrink: 0;
+}
+
+.choice strong {
+    display: block;
+}
+
+.choice small {
+    color: var(--grijs);
+}
+
+.char-count {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    color: var(--grijs);
+    text-align: right;
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+    border-color: var(--rood);
+}
+
+.field-error {
+    margin: 6px 0 0;
+    color: var(--rood);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Honeypot onzichtbaar maken */
+.hp {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ---------- Samenvatting (inschrijven, winkelwagen, afrekenen) ---------- */
+.summary {
+    background: var(--houtskool);
+    color: var(--creme);
+    padding: 28px;
+    border-radius: var(--radius-groot);
+    box-shadow: var(--schaduw-hover);
+}
+
+.summary h2,
+.summary h3 {
+    font-size: 1.4rem;
+}
+
+.summary dl {
+    margin: 0 0 16px;
+}
+
+.summary dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+}
+
+.summary dd {
+    margin: 0 0 12px;
+    font-weight: 600;
+}
+
+.summary .totals {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+}
+
+.summary .totals dt {
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.summary .totals dd {
+    margin: 0;
+    text-align: right;
+}
+
+.summary-items {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0 0 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.summary-items li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 4px 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 0 4px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: var(--font-kop);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.summary-total span {
+    color: var(--oranje);
+}
+
+.summary .note {
+    color: var(--creme);
+    opacity: 0.65;
+}
+
+.summary .btn-block {
+    margin: 20px 0 16px;
+}
+
+.summary .link-arrow {
+    color: var(--creme);
+    font-size: 0.9rem;
+}
+
+.free-shipping {
+    margin: 0 0 12px;
+    padding: 8px 12px;
+    border-radius: var(--radius-klein);
+    background: rgba(46, 139, 87, 0.18);
+    color: #9fe0bb;
+    font-size: 0.9rem;
+}
+
+.pay-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+.pay-methods li {
+    padding: 3px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* ---------- Stappen (winkelwagen > gegevens > betalen) ---------- */
+.steps {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--grijs);
+    counter-reset: stap;
+}
+
+.steps li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.steps li:not(:last-child)::after {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--lijn);
+}
+
+.step-nr {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--lijn);
+    font-weight: 700;
+}
+
+.steps .current {
+    color: var(--tekst);
+    font-weight: 600;
+}
+
+.steps .current .step-nr {
+    border-color: var(--oranje);
+    background: var(--oranje);
+    color: var(--houtskool);
+}
+
+.steps .done .step-nr {
+    border-color: var(--groen);
+    background: var(--groen);
+    color: transparent;
+    position: relative;
+}
+
+.steps .done .step-nr::after {
+    content: '\2713';
+    position: absolute;
+    color: var(--wit);
+}
+
+.confirmation .steps {
+    justify-content: center;
+}
+
+/* ---------- Winkelwagen ---------- */
+.cart-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--lijn);
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    grid-template-areas:
+        "foto info verwijder"
+        "foto aantal totaal";
+    gap: 8px 16px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--lijn);
+}
+
+.cart-item-image {
+    grid-area: foto;
+    align-self: start;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: var(--radius-klein);
+    overflow: hidden;
+    background: #eef1f7;
+}
+
+.cart-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cart-item-info {
+    grid-area: info;
+}
+
+.cart-item-info h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.cart-item-info h2 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.cart-item-info h2 a:hover {
+    color: var(--blauw);
+}
+
+.cart-item-info .note {
+    margin: 0;
+}
+
+.cart-item .qty {
+    grid-area: aantal;
+    margin: 0;
+}
+
+.cart-item .qty input {
+    min-height: 44px;
+}
+
+.cart-item-total {
+    grid-area: totaal;
+    margin: 0;
+    font-family: var(--font-kop);
+    font-size: 1.2rem;
+    text-align: right;
+}
+
+.icon-btn {
+    grid-area: verwijder;
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--grijs);
+    cursor: pointer;
+    transition: background var(--overgang), color var(--overgang);
+}
+
+.icon-btn:hover {
+    background: #fbe9e7;
+    color: var(--rood);
+}
+
+.cart-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.empty-state {
+    max-width: 480px;
+    margin: 24px auto;
+    padding: 48px 24px;
+    text-align: center;
+    border: 1.5px dashed var(--lijn);
+    border-radius: var(--radius-groot);
+    color: var(--grijs);
+}
+
+.empty-state svg {
+    margin: 0 auto 16px;
+    color: var(--oranje);
+}
+
+.empty-state h2 {
+    color: var(--tekst);
+    font-size: 1.6rem;
+}
+
+/* ---------- Bevestiging ---------- */
+.confirmation {
+    text-align: center;
+}
+
+.confirmation .specs {
+    text-align: left;
+    margin: 32px 0;
+    box-shadow: var(--schaduw);
+}
+
+.confirmation-icon {
+    display: grid;
+    place-items: center;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--groen);
+    color: var(--wit);
+    font-size: 2.5rem;
+    box-shadow: 0 0 0 10px rgba(46, 139, 87, 0.15);
+    animation: ploppen 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+.confirmation-wait {
+    background: var(--blauw);
+    box-shadow: 0 0 0 10px rgba(31, 63, 143, 0.15);
+}
+
+.confirmation-error {
+    background: var(--rood);
+    box-shadow: 0 0 0 10px rgba(192, 57, 43, 0.15);
+}
+
+@keyframes ploppen {
+    from {
+        transform: scale(0.4);
+        opacity: 0;
+    }
+}
+
+.next-steps {
+    margin: 0 0 32px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--creme-licht);
+    border: 1px solid var(--lijn);
+}
+
+.next-steps h2 {
+    font-size: 1.4rem;
+}
+
+.next-steps p {
+    margin: 0;
+}
+
+/* Betaalstap */
+.payment-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--lijn);
+}
+
+.payment-amount strong {
+    font-family: var(--font-kop);
+    font-size: 2.2rem;
+}
+
+.choice-group-stack {
+    grid-template-columns: 1fr !important;
+}
+
+/* ---------- Lopende tekst (voorwaarden) ---------- */
+.prose h2 {
+    margin-top: 1.6em;
+    font-size: 1.5rem;
+}
+
+.prose h2:first-child {
+    margin-top: 0;
+}
+
+/* ---------- Stijlgids-pagina ---------- */
+.styleguide-nav {
+    position: sticky;
+    top: var(--header-hoogte);
+    z-index: 50;
+    padding: 0;
+    background: var(--wit);
+    border-bottom: 1px solid var(--lijn);
+}
+
+.styleguide-nav .container {
+    display: flex;
+    gap: 4px 24px;
+    overflow-x: auto;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    white-space: nowrap;
+}
+
+/* Kopjes niet onder de vaste menubalk laten verdwijnen bij klikken */
+.styleguide-nav ~ section {
+    scroll-margin-top: 56px;
+}
+
+.styleguide-nav a {
+    font-family: var(--font-kop);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--tekst);
+}
+
+.styleguide-nav a:hover {
+    color: var(--oranje-donker);
+}
+
+code {
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: rgba(31, 63, 143, 0.08);
+    font-size: 0.88em;
+}
+
+.swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+}
+
+.swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9rem;
+}
+
+.swatch-color {
+    height: 96px;
+    margin-bottom: 10px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.swatch small {
+    color: var(--grijs);
+    line-height: 1.4;
+}
+
+.type-samples {
+    margin-bottom: 32px;
+    padding: 32px;
+    border-radius: var(--radius-groot);
+    background: var(--wit);
+    border: 1px solid var(--lijn);
+}
+
+.sg-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.sg-dark,
+.sg-orange {
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--houtskool);
+}
+
+.sg-orange {
+    background: var(--oranje);
+}
+
+.sg-notes {
+    margin: 24px 0 0;
+    padding-left: 20px;
+    color: var(--grijs);
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.table-scroll .specs th {
+    width: auto;
+}
+
+.sg-split {
+    display: grid;
+    gap: 40px;
+}
+
+.sg-static.toast {
+    position: static;
+    margin-bottom: 8px;
+    opacity: 1;
+    transform: none;
+}
+
+.sg-static.cart-count {
+    position: static;
+    display: inline-block;
+}
+
+.sg-form {
+    max-width: 760px;
+}
+
+.spacing-scale {
+    margin-bottom: 24px;
+}
+
+.spacing-scale div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--grijs);
+}
+
+.spacing-scale span {
+    height: 14px;
+    border-radius: 3px;
+    background: var(--oranje);
+}
+
+.sg-logo {
+    display: grid;
+    place-items: center;
+    padding: 32px;
+    border-radius: var(--radius-groot);
+    background: var(--houtskool);
+}
+
+@media (min-width: 1000px) {
+    .sg-split {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+    }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    background: var(--houtskool);
+    color: rgba(244, 237, 227, 0.8);
+    padding-top: 64px;
+}
+
+.footer-grid {
+    display: grid;
+    gap: 36px;
+    padding-bottom: 48px;
+}
+
+.footer-logo {
+    width: 96px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.footer-brand p {
+    max-width: 22em;
+}
+
+.footer-title {
+    color: var(--wit);
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+}
+
+.site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-footer li {
+    margin-bottom: 6px;
+}
+
+.site-footer a {
+    color: rgba(244, 237, 227, 0.8);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: var(--oranje);
+}
+
+.site-footer address {
+    font-style: normal;
+    margin-bottom: 12px;
+}
+
+.openingstijden span {
+    display: inline-block;
+    width: 90px;
+    opacity: 0.6;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 0;
+    font-size: 0.875rem;
+    color: rgba(244, 237, 227, 0.6);
+}
+
+.footer-bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* ---------- Rustig verschijnen bij scrollen (zie js/app.js) ---------- */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.js .reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Kaarten in een rij na elkaar laten verschijnen */
+.grid > .reveal:nth-child(2) { transition-delay: 0.08s; }
+.grid > .reveal:nth-child(3) { transition-delay: 0.16s; }
+.grid > .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+/* Na het verschijnen moet de hover-animatie weer direct reageren */
+.js .card.reveal.visible {
+    transition: transform var(--overgang), box-shadow var(--overgang), border-color var(--overgang),
+                opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* =========================================================
+   Tablet (vanaf 700px)
+   ========================================================= */
+@media (min-width: 700px) {
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .usp-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .field-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .field-row-address {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .choice-group {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-thumb {
+        width: 110px;
+        height: 82px;
+    }
+
+    .form {
+        padding: 32px;
+    }
+
+    .toast {
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+        max-width: 440px;
+    }
+
+    .cart-item {
+        grid-template-columns: 96px 1fr 90px 110px 40px;
+        grid-template-areas: "foto info aantal totaal verwijder";
+    }
+
+    .steps {
+        font-size: 0.95rem;
+    }
+
+    .steps li:not(:last-child)::after {
+        width: 40px;
+    }
+}
+
+/* =========================================================
+   Desktop (vanaf 1000px)
+   ========================================================= */
+@media (min-width: 1000px) {
+    :root {
+        --header-hoogte: 80px;
+    }
+
+    .section {
+        padding: 96px 0;
+    }
+
+    .section-tight {
+        padding: 48px 0 80px;
+    }
+
+    .page-hero {
+        padding: 96px 0;
+    }
+
+    .logo img {
+        width: 56px;
+        height: 56px;
+    }
+
+    /* Menu naast het logo, hamburger weg */
+    .menu-toggle {
+        display: none;
+    }
+
+    .main-nav {
+        position: static;
+        display: block;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .main-nav ul {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        padding: 0;
+    }
+
+    .main-nav a:not(.btn) {
+        position: relative;
+        padding: 6px 0;
+        border-bottom: 0;
+    }
+
+    /* Streepje onder het menu-item dat van links naar rechts groeit */
+    .main-nav a:not(.btn)::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--oranje);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--overgang);
+    }
+
+    .main-nav a:not(.btn):hover::after,
+    .main-nav a.active::after {
+        transform: scaleX(1);
+    }
+
+    .main-nav .btn {
+        margin-top: 0;
+    }
+
+    .header-actions {
+        margin-left: 12px;
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid {
+        gap: 28px;
+    }
+
+    .split {
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+    }
+
+    .product-layout {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 64px;
+    }
+
+    .product-bottom {
+        grid-template-columns: 1fr 1.3fr;
+        gap: 64px;
+    }
+
+    .form-layout,
+    .checkout-layout {
+        grid-template-columns: minmax(0, 1.75fr) minmax(320px, 1fr);
+        gap: 48px;
+    }
+
+    .form {
+        padding: 40px;
+    }
+
+    .summary {
+        position: sticky;
+        top: calc(var(--header-hoogte) + 24px);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    }
+}
+
+/* =========================================================
+   Minder beweging voor wie dat heeft ingesteld
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}

@@ -1,0 +1,237 @@
+/**
+* This is a theme customizable file, please add your own CSS in this file.
+*/
+
+html {
+    /* scroll-behavior: smooth !important; */
+    overflow-x: hidden;
+  }
+
+.small-screen {
+    height: 600px !important;
+}
+
+.navbar {
+    max-width: 100vw;
+}
+
+.menu-addon {
+    padding: 20px;
+    background-color: #1567bc;
+}
+
+.primary {
+    color: #1567bc;
+}
+.primary-bg {
+    background-color: #1567bc !important; 
+}
+a.primary:hover {
+    color: #1567bc;
+}
+.primary-border-bottom {
+    border-bottom: 4px solid #43A047;
+}
+.primary-border-top {
+ border-top: 4px solid #43A047 ;
+}
+.secondary {
+    color: #ffffff !important;
+}
+.secondary-bg {
+    background-color: #ffffff !important;
+}
+
+.text-three {
+    color: #FFBF00 !important;
+}
+
+.black {
+    color: #000 !important;
+}
+
+.border-color-light-grey-transparent {
+    border-color: rgb(207, 207, 207) !important;
+}
+
+.footer-social {
+    font-size: 20px;
+    margin: 0 20px;
+}
+
+.footer-service {
+    font-size: 15px !important;
+    color: #000 !important;
+}
+
+.footer-service:hover {
+    color: #43A047 !important;
+}   
+
+.gallery-select {
+    width: 300px ;
+}
+
+.img-home-about {
+    border-right: 15px solid #38a9dc;
+    border-top: 15px solid #38a9dc;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.img-home-werkgebied {
+    border-left: 15px solid #38a9dc;
+    border-bottom: 15px solid #38a9dc;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.info-block {
+    padding-bottom: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 60px;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    margin: 20px;
+    background-color: #FFFFFF;
+    position: relative;
+    z-index: 0;
+    color: #FFFFFF;
+    border-left: 15px solid #38a9dc;
+    border-bottom: 15px solid #38a9dc;
+}
+
+.info-block-bottom {
+    border-left: 20px solid #1567bc;
+    border-bottom: 20px solid #1567bc;
+}
+
+.info-block-top {
+    border-right: 20px solid #1567bc;
+    border-top: 20px solid #1567bc;
+}
+
+.info-block-bottom-clear {
+    border-right: 20px solid #1566bc00;
+    border-bottom: 20px solid #1566bc00;
+}
+
+.info-block-top-clear {
+    border-left: 20px solid #1566bc00;
+    border-top: 20px solid #1566bc00;
+}
+
+.color-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #204082; /* Semi-transparent red background */
+    z-index: -1;
+    opacity: 0.7;
+  }
+
+  .info-block h6 {
+    font-weight: 600; 
+  }
+
+
+.opacity-extra-medium {
+    opacity: 0.1 !important;
+}
+
+.over-ons {
+    background-color: #1566bc22 !important;
+}
+
+.over-ons-foto {
+    text-align: center !important;
+}
+
+.diensten-list {
+    color: #000;
+}
+
+.diensten-lists {
+    padding: 20px;
+    background-color: #e9e9e9a4;
+    margin-top: -55px;
+}
+
+.diensten-title {
+    font-weight: bold;
+}
+
+.nav-link {
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: #43A047 !important;
+}
+
+.nav-item:hover {
+    color: #43A047 !important;
+}
+
+.welkom-image {
+    padding-top: 50px;
+}
+
+.home-nav-icon {
+    color: #1567bc;
+    font-size: 20px;
+    font-weight: 600;   
+    display: flex;
+    float: left;
+    justify-content: center;
+    margin-top: 4px;
+    margin-right: 5px; 
+}
+
+.icon-large {
+    font-weight: 600;
+}
+
+.parallax {
+    border-top: 5px solid #43A047;
+    border-bottom: 5px solid #43A047;
+}
+
+.btn {
+ background-color: #FFBF00 !important;
+ font-weight: 600;
+ border: none;
+}
+
+.nkdigital {
+    color: #204082 !important;
+    background-position: center;
+}
+
+.dienst-box:hover {
+    color: #43A047 !important;
+}
+
+.mogelijkheden h6 {
+    color: #000;
+}
+
+
+.red{color:red;}
+
+@media screen and (max-width: 620px) {
+    .info-block {
+        width: 90% !important;
+
+    }
+
+  }
+
+  @media screen and (max-width: 770px) {
+
+    .contact-col {
+        width: 100% !important;
+    }
+
+  }

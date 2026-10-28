@@ -1,0 +1,51 @@
+# -------------------------------------------------
+# --- KBS.FRONT - Kamado Breda
+# -------------------------------------------------
+# Works in any folder without changes (localhost, a sub folder or the domain root).
+# Everything that is not an existing file goes to index.php (the router), also /admin:
+# the router serves the KBS.CMS admin next to (or one folder above) this front-end.
+# Herd/nginx does not read this file, it already sends every unknown url to index.php.
+
+# --- Block access to sensitive files
+<Files "database.config">
+    Require all denied
+</Files>
+<FilesMatch "\.(md|log|lock|config)$|^\.git|^composer\.(json|lock)$|^package(-lock)?\.json$">
+    Require all denied
+</FilesMatch>
+
+# --- MultiViews would map /page/ to page.php before the rules below run
+Options -MultiViews -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # --- Code of the webshop is only loaded through the router
+    RewriteRule ^(includes|pages)(/|$) index.php [L]
+
+    # --- Everything that is not an existing file or folder goes to the router
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# -------------------------------------------------
+# --- SPEED
+# -------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# CSS and JS of the webshop get a version number (?v=...) in the url, so they may be cached long
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css                 "access plus 1 year"
+    ExpiresByType application/javascript   "access plus 1 year"
+    ExpiresByType image/jpeg               "access plus 6 months"
+    ExpiresByType image/png                "access plus 6 months"
+    ExpiresByType image/webp               "access plus 6 months"
+    ExpiresByType font/woff2               "access plus 1 year"
+</IfModule>
+
+AddType font/woff2 .woff2
+AddType image/webp .webp

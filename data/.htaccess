@@ -1,0 +1,3 @@
+# Niemand mag via de browser bestanden uit deze map openen
+# (hier staan de aanmeldingen met persoonsgegevens)
+Require all denied

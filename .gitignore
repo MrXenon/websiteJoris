@@ -1,6 +1,73 @@
-# Aanmeldingen en bestellingen bevatten persoonsgegevens -> niet in git
+# -------------------------------------------------
+# Environment / secrets
+# -------------------------------------------------
+# Created per environment by createDatabaseConfig.php (contains database credentials)
+database.config
+
+# -------------------------------------------------
+# Site content managed by KBS.CMS (uploads)
+# -------------------------------------------------
+# Upload folders of the CMS modules, only the default images of KBS.FRONT are versioned
+images/banners/*
+!images/banners/banner.png
+images/logo/*
+!images/logo/favicon.png
+!images/logo/logo.png
+!images/logo/logo-wit.png
+images/frontendPagesContent/*
+images/reviewCompany/*
+!images/reviewCompany/review-logo.jpg
+!images/reviewCompany/review-logo.png
+images/projects/
+images/services/
+images/linkDisplay/
+images/galerij/
+images/blog/
+
+# -------------------------------------------------
+# Site specific files
+# -------------------------------------------------
+# Front pages created by the CMS (copies of admin/pages/frontend-template/template.php),
+# the default/system pages (index, login, 404, ...) stay versioned
+/projecten.php
+/hosting_diensten.php
+/3D-Plugin.php
+
+# One-time imports; the import of the Kamado Breda content stays versioned
+/install/*
+!/install/kamado-breda-content.php
+
+# -------------------------------------------------
+# Build / tooling leftovers
+# -------------------------------------------------
+*.map
+*.log
+error_log
+.phpunit.result.cache
+.cache/
+
+# -------------------------------------------------
+# OS / editor files
+# -------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# -------------------------------------------------
+# Kamado Breda webshop
+# -------------------------------------------------
+# Aanmeldingen en bestellingen bevatten persoonsgegevens
 data/*.csv
 data/bestellingen/
-
 # Geheime instellingen (Mollie API-sleutel)
 includes/config.local.php
+
+# -------------------------------------------------
+# KBS.FRONT is a separate repository (github.com/MrXenon/KBS.FRONT), not part of this website
+# -------------------------------------------------
+/KBS.FRONT/
+node_modules
