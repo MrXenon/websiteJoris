@@ -74,7 +74,7 @@
     .burger b { display: block; height: 4px; background: #333; margin: 5px 0; }
 
     /* Footer */
-    .footer { background: #bdbdbd; padding: 30px 40px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px; border-top: 2px solid #333; }
+    .footer { background: #bdbdbd; padding: 30px 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; border-top: 2px solid #333; }
     .m .footer { grid-template-columns: 1fr; padding: 20px 16px; gap: 16px; }
 
     /* Galerij */
@@ -104,6 +104,30 @@
     .badge { display: inline-block; border: 1px solid #333; background: #fff; font-size: 11px; padding: 2px 6px; font-weight: bold; }
     .table div { display: flex; border-bottom: 1px solid #bbb; padding: 8px 0; font-size: 13px; }
     .table div b { width: 45%; }
+    /* Webshop */
+    .cart-ic { position: relative; display: inline-block; width: 26px; height: 26px; border: 2px solid #333; border-radius: 3px 3px 7px 7px; background: #fff; }
+    .cart-ic::before { content: ''; position: absolute; left: 6px; right: 6px; top: -7px; height: 8px; border: 2px solid #333; border-bottom: 0; border-radius: 6px 6px 0 0; }
+    .cart-ic b { position: absolute; top: -10px; right: -12px; min-width: 18px; padding: 1px 4px; border-radius: 9px; background: #555; color: #fff; font-size: 10px; text-align: center; }
+    .qty { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 36px; border: 1px solid #777; background: #fff; font-size: 13px; font-weight: bold; }
+    .btn.big { display: block; text-align: center; padding: 12px 16px; }
+    .steps { display: flex; gap: 10px; align-items: center; font-size: 13px; color: #777; margin-bottom: 16px; }
+    .steps span { display: inline-flex; align-items: center; gap: 6px; }
+    .steps i { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #999; font-style: normal; font-size: 11px; font-weight: bold; }
+    .steps .on { color: #333; font-weight: bold; } .steps .on i { background: #555; border-color: #555; color: #fff; }
+    .steps .done i { background: #999; border-color: #999; color: #fff; }
+    .steps hr { width: 30px; border: 0; border-top: 2px solid #bbb; margin: 0; }
+    .m .steps { gap: 6px; font-size: 11px; } .m .steps hr { width: 12px; }
+    .choice { border: 2px solid #999; background: #fff; padding: 10px 12px; font-size: 13px; }
+    .choice.on { border-color: #333; }
+    .choice b { display: block; } .choice b::before { content: '○ '; } .choice.on b::before { content: '● '; }
+    .choice small { color: #777; }
+    .toast { position: absolute; right: 20px; bottom: 20px; width: 360px; background: #555; color: #fff; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; border: 2px solid #333; }
+    .toast .btn { background: #fff; color: #333; padding: 4px 8px; font-size: 11px; }
+    .row-item { display: grid; grid-template-columns: 70px 1fr 60px 90px 24px; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #bbb; font-size: 13px; }
+    .m .row-item { grid-template-columns: 56px 1fr auto; gap: 10px; }
+    .pay { display: inline-block; border: 1px solid #333; background: #fff; font-size: 10px; padding: 1px 6px; margin: 2px 2px 0 0; }
+    .ext { border: 3px dashed #777; }
+    .check-ok.no { border-style: dashed; }
     .check-ok { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #333; margin: 0 auto 16px;
                 display: flex; align-items: center; justify-content: center; font-size: 32px; }
 </style>
@@ -134,7 +158,7 @@
     <p class="wf-title">Relaties tussen de wireframes – sitemap &amp; gebruikersstroom</p>
     <p class="wf-sub">Kamado Breda · hoe de pagina's met elkaar verbonden zijn (welke knop/link leidt waarheen)</p>
 
-    <svg class="flow" width="1680" height="1010" viewBox="0 0 1680 1010" xmlns="http://www.w3.org/2000/svg">
+    <svg class="flow" width="1680" height="1620" viewBox="0 0 1680 1620" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="pijl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker>
             <marker id="pijl-blauw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b6cd4"/></marker>
@@ -144,17 +168,17 @@
         <!-- ===== Verbindingen (eerst tekenen, zodat de pagina's erboven liggen) ===== -->
         <!-- 1 Home -> Kamado's -->
         <path class="link" d="M320,430 C420,430 420,200 516,200" marker-end="url(#pijl)"/>
-        <text class="lbl" x="405" y="300" text-anchor="end">① Bekijk de kamado's</text>
+        <text class="lbl" x="405" y="300" text-anchor="end">① Shop de kamado's</text>
         <!-- 2 Home -> Product (over de bovenkant) -->
         <path class="link" d="M200,380 L200,70 L1080,70 L1080,116" marker-end="url(#pijl)"/>
-        <text class="lbl" x="560" y="62">② Bekijk details (productkaart)</text>
+        <text class="lbl" x="560" y="62">② Details (productkaart)</text>
         <!-- 3 Home -> Masterclasses -->
         <path class="link" d="M320,540 C420,540 420,760 516,760" marker-end="url(#pijl)"/>
         <text class="lbl" x="405" y="655" text-anchor="end">③ Masterclasses /</text>
         <text class="lbl" x="405" y="673" text-anchor="end">Inschrijven (?class=…)</text>
         <!-- 4 Kamado's -> Product -->
         <path class="link" d="M760,190 L956,190" marker-end="url(#pijl)"/>
-        <text class="lbl" x="800" y="180">④ Bekijk details</text>
+        <text class="lbl" x="800" y="180">④ Details</text>
         <!-- 5 Product -> Kamado's (kruimelpad) -->
         <path class="link" d="M960,255 L764,255" marker-end="url(#pijl)"/>
         <text class="lbl" x="800" y="277">⑤ Kruimelpad</text>
@@ -163,10 +187,10 @@
         <text class="lbl" x="1100" y="418">⑥ Andere kamado's</text>
         <!-- 7 Product -> Masterclasses -->
         <path class="link" d="M990,330 L744,636" marker-end="url(#pijl)"/>
-        <text class="lbl" x="880" y="470">⑦ Eerst een masterclass?</text>
+        <text class="lbl" x="880" y="470">⑦ Volg een masterclass</text>
         <!-- 8 Product -> 404 -->
         <path class="server" d="M1200,225 L1376,225" marker-end="url(#pijl-grijs)"/>
-        <text class="lbl" x="1222" y="215">⑧ onbekend ?id=</text>
+        <text class="lbl" x="1210" y="215">⑧ onbekend product</text>
         <!-- 9 Masterclasses -> zichzelf (fouten) -->
         <path class="post" d="M570,850 C570,925 710,925 710,856" marker-end="url(#pijl-blauw)"/>
         <text class="lbl" x="520" y="945">⑨ POST met fouten → formulier opnieuw</text>
@@ -181,75 +205,139 @@
         <path class="link" d="M1080,850 L1080,985 L130,985 L130,594" marker-end="url(#pijl)"/>
         <text class="lbl" x="840" y="977">⑫ Terug naar home</text>
         <!-- 13 Footer -> Fotobronnen -->
-        <path class="link" d="M1490,540 L1490,666" marker-end="url(#pijl)"/>
-        <text class="lbl" x="1500" y="610">⑬ Fotobronnen</text>
+        <path class="link" d="M1490,540 L1490,626" marker-end="url(#pijl)"/>
+        <text class="lbl" x="1500" y="590">⑬ Fotobronnen</text>
+
+        <!-- 14 Home/Kamado's/Product -> Winkelwagen (Bestellen) -->
+        <path class="post" d="M200,590 L200,1076" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="212" y="1030">⑭ Bestellen (ook op Kamado's en Product)</text>
+        <!-- 15 Winkelwagen -> zichzelf -->
+        <path class="post" d="M140,1290 C140,1360 260,1360 260,1296" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="200" y="1385" text-anchor="middle">⑮ aantal wijzigen / verwijderen</text>
+        <!-- 16 Winkelwagen -> Afrekenen -->
+        <path class="link" d="M320,1160 L516,1160" marker-end="url(#pijl)"/>
+        <text class="lbl" x="340" y="1150">⑯ Afrekenen</text>
+        <!-- 17 Afrekenen -> zichzelf (fouten) -->
+        <path class="post" d="M580,1290 C580,1360 700,1360 700,1296" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="640" y="1385" text-anchor="middle">⑰ POST met fouten</text>
+        <!-- 18 Afrekenen -> Betalen -->
+        <path class="post" d="M760,1160 L956,1160" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="776" y="1150">⑱ POST geldig, online</text>
+        <text class="lbl" x="776" y="1182" style="font-size:12px">→ opslaan + naar Mollie</text>
+        <!-- 19 Afrekenen -> Bestelling (betalen bij afhalen) -->
+        <path class="post" d="M740,1290 L740,1430 L1440,1430 L1440,1294" marker-end="url(#pijl-blauw)"/>
+        <text class="lbl" x="1090" y="1422" text-anchor="middle">⑲ POST geldig, betalen bij afhalen → opslaan + redirect</text>
+        <!-- 20 Betalen -> Bestelling -->
+        <path class="server" d="M1200,1160 L1376,1160" marker-end="url(#pijl-grijs)"/>
+        <text class="lbl" x="1210" y="1150">⑳ Mollie stuurt</text>
+        <text class="lbl" x="1210" y="1182" style="font-size:12px">klant terug</text>
+        <!-- 21 Bestelling (mislukt) -> Afrekenen -->
+        <path class="link" d="M1540,1076 L1540,1040 L700,1040 L700,1076" marker-end="url(#pijl)"/>
+        <text class="lbl" x="1120" y="1032" text-anchor="middle">㉑ Opnieuw proberen (betaling mislukt)</text>
+        <!-- 22 Footer -> Voorwaarden -->
+        <path class="link" d="M1600,510 L1645,510 L1645,780 L1604,780" marker-end="url(#pijl)"/>
+        <text class="lbl" x="1650" y="660" transform="rotate(90 1650 660)" text-anchor="middle">㉒ Voorwaarden</text>
 
         <!-- ===== Pagina's (wireframe-miniaturen) ===== -->
         <!-- Home -->
         <rect class="node" x="80" y="380" width="240" height="210"/>
         <rect class="thumb" x="90" y="390" width="220" height="140"/>
-        <svg x="90" y="390" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/01-home-desktop.png" width="1638" height="2524"/></svg>
+        <svg x="90" y="390" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/01-home-desktop.png" width="1640" height="2538"/></svg>
         <text class="title" x="200" y="555" text-anchor="middle">Home</text>
-        <text class="file" x="200" y="575" text-anchor="middle">index.php · wf 01 + 02</text>
+        <text class="file" x="200" y="575" text-anchor="middle">/ · wf 01 + 02</text>
 
         <!-- Kamado's -->
         <rect class="node" x="520" y="120" width="240" height="210"/>
-        <svg x="530" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/03-kamados-desktop.png" width="1636" height="1934"/></svg>
-        <text class="title" x="640" y="295" text-anchor="middle">Kamado's (overzicht)</text>
-        <text class="file" x="640" y="315" text-anchor="middle">kamados.php · wf 03</text>
+        <svg x="530" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/03-kamados-desktop.png" width="1640" height="2107"/></svg>
+        <text class="title" x="640" y="295" text-anchor="middle">Kamado's + accessoires</text>
+        <text class="file" x="640" y="315" text-anchor="middle">/kamados · wf 03</text>
 
         <!-- Product -->
         <rect class="node" x="960" y="120" width="240" height="210"/>
-        <svg x="970" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/04-product.png" width="2064" height="1266"/></svg>
+        <svg x="970" y="130" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/04-product.png" width="2075" height="1267"/></svg>
         <text class="title" x="1080" y="295" text-anchor="middle">Productdetail</text>
-        <text class="file" x="1080" y="315" text-anchor="middle">product.php?id=… · wf 04</text>
+        <text class="file" x="1080" y="315" text-anchor="middle">/kamados/{id} · wf 04</text>
 
         <!-- 404 -->
         <rect class="node" x="1380" y="160" width="220" height="130" style="stroke-dasharray:7 5"/>
         <text class="title" x="1490" y="215" text-anchor="middle">404 – niet gevonden</text>
-        <text class="file" x="1490" y="237" text-anchor="middle">product.php (zelfde bestand)</text>
+        <text class="file" x="1490" y="237" text-anchor="middle">ook voor onbekende URL's</text>
         <text class="file" x="1490" y="257" text-anchor="middle">knop → Kamado's</text>
 
         <!-- Masterclasses -->
         <rect class="node" x="520" y="640" width="240" height="210"/>
-        <svg x="530" y="650" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/05-masterclass-desktop.png" width="1636" height="1936"/></svg>
+        <svg x="530" y="650" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/05-masterclass-desktop.png" width="1640" height="1937"/></svg>
         <text class="title" x="640" y="815" text-anchor="middle">Masterclasses + formulier</text>
-        <text class="file" x="640" y="835" text-anchor="middle">masterclass.php · wf 05 + 06</text>
+        <text class="file" x="640" y="835" text-anchor="middle">/masterclasses · wf 05 + 06</text>
 
         <!-- Bevestiging -->
         <rect class="node" x="960" y="640" width="240" height="210"/>
         <rect class="thumb" x="970" y="650" width="220" height="140"/>
-        <svg x="1040" y="650" width="81" height="140" viewBox="575 102 375 650" preserveAspectRatio="xMidYMin slice"><image href="wireframes/06-masterclass-mobiel.png" width="1348" height="1052"/></svg>
-        <text class="title" x="1080" y="815" text-anchor="middle">Bevestiging</text>
-        <text class="file" x="1080" y="835" text-anchor="middle">bevestiging.php · wf 06</text>
+        <svg x="1040" y="650" width="81" height="140" viewBox="575 102 375 650" preserveAspectRatio="xMidYMin slice"><image href="wireframes/06-masterclass-mobiel.png" width="1350" height="1053"/></svg>
+        <text class="title" x="1080" y="815" text-anchor="middle">Bevestiging inschrijving</text>
+        <text class="file" x="1080" y="835" text-anchor="middle">/bevestiging · wf 06</text>
 
         <!-- Fotobronnen -->
-        <rect class="node" x="1380" y="670" width="220" height="110"/>
-        <text class="title" x="1490" y="720" text-anchor="middle">Fotobronnen</text>
-        <text class="file" x="1490" y="742" text-anchor="middle">fotobronnen.php</text>
-        <text class="file" x="1490" y="760" text-anchor="middle">(geen eigen wireframe: tabel)</text>
+        <rect class="node" x="1380" y="630" width="220" height="80"/>
+        <text class="title" x="1490" y="663" text-anchor="middle">Fotobronnen</text>
+        <text class="file" x="1490" y="685" text-anchor="middle">/fotobronnen (tabel)</text>
+
+        <!-- Voorwaarden -->
+        <rect class="node" x="1380" y="740" width="220" height="80"/>
+        <text class="title" x="1490" y="773" text-anchor="middle">Voorwaarden</text>
+        <text class="file" x="1490" y="795" text-anchor="middle">/voorwaarden (tekst)</text>
+
+        <!-- Winkelwagen -->
+        <rect class="node" x="80" y="1080" width="240" height="210"/>
+        <rect class="thumb" x="90" y="1090" width="220" height="140"/>
+        <svg x="90" y="1090" width="220" height="140" viewBox="40 102 1160 740" preserveAspectRatio="xMidYMin slice"><image href="wireframes/07-winkelwagen.png" width="2075" height="847"/></svg>
+        <text class="title" x="200" y="1255" text-anchor="middle">Winkelwagen</text>
+        <text class="file" x="200" y="1275" text-anchor="middle">/winkelwagen · wf 07</text>
+
+        <!-- Afrekenen -->
+        <rect class="node" x="520" y="1080" width="240" height="210"/>
+        <svg x="530" y="1090" width="220" height="140" viewBox="40 102 1202 765" preserveAspectRatio="xMidYMin slice"><image href="wireframes/08-afrekenen-desktop.png" width="1640" height="1313"/></svg>
+        <text class="title" x="640" y="1255" text-anchor="middle">Afrekenen</text>
+        <text class="file" x="640" y="1275" text-anchor="middle">/afrekenen · wf 08</text>
+
+        <!-- Betalen (extern) -->
+        <rect class="node" x="960" y="1080" width="240" height="210" style="stroke-dasharray:7 5"/>
+        <rect class="thumb" x="970" y="1090" width="220" height="140"/>
+        <svg x="1040" y="1090" width="81" height="140" viewBox="40 102 375 650" preserveAspectRatio="xMidYMin slice"><image href="wireframes/09-betalen-mobiel.png" width="1785" height="708"/></svg>
+        <text class="title" x="1080" y="1255" text-anchor="middle">Betalen bij Mollie</text>
+        <text class="file" x="1080" y="1275" text-anchor="middle">extern (demo: /betalen) · wf 09</text>
+
+        <!-- Bestelling -->
+        <rect class="node" x="1380" y="1080" width="220" height="210"/>
+        <rect class="thumb" x="1390" y="1090" width="200" height="140"/>
+        <svg x="1450" y="1090" width="81" height="140" viewBox="575 102 375 650" preserveAspectRatio="xMidYMin slice"><image href="wireframes/09-betalen-mobiel.png" width="1785" height="708"/></svg>
+        <text class="title" x="1490" y="1255" text-anchor="middle">Bestelling bevestigd</text>
+        <text class="file" x="1490" y="1275" text-anchor="middle">/bestelling/{nr} · wf 09</text>
 
         <!-- ===== Header en footer (op elke pagina) ===== -->
-        <rect x="1380" y="330" width="220" height="120" fill="#bdbdbd" stroke="#333" stroke-width="2"/>
-        <text class="title" x="1490" y="355" text-anchor="middle">header.php</text>
-        <text class="file" x="1490" y="375" text-anchor="middle" style="fill:#333">op ELKE pagina. Menu naar:</text>
-        <text class="file" x="1490" y="395" text-anchor="middle" style="fill:#333">Home · Kamado's · Masterclasses</text>
-        <text class="file" x="1490" y="415" text-anchor="middle" style="fill:#333">+ knop Inschrijven</text>
-        <text class="file" x="1490" y="435" text-anchor="middle" style="fill:#333">(→ masterclass.php#inschrijven)</text>
+        <rect x="1380" y="320" width="220" height="140" fill="#bdbdbd" stroke="#333" stroke-width="2"/>
+        <text class="title" x="1490" y="345" text-anchor="middle">header.php</text>
+        <text class="file" x="1490" y="365" text-anchor="middle" style="fill:#333">op ELKE pagina. Menu naar:</text>
+        <text class="file" x="1490" y="385" text-anchor="middle" style="fill:#333">Home · Kamado's · Masterclasses</text>
+        <text class="file" x="1490" y="405" text-anchor="middle" style="fill:#333">+ knop Inschrijven</text>
+        <text class="file" x="1490" y="425" text-anchor="middle" style="fill:#333">+ winkelwagen-icoon (met aantal)</text>
+        <text class="file" x="1490" y="445" text-anchor="middle" style="fill:#333">(→ /winkelwagen)</text>
 
         <rect x="1380" y="480" width="220" height="60" fill="#bdbdbd" stroke="#333" stroke-width="2"/>
         <text class="title" x="1490" y="505" text-anchor="middle">footer.php</text>
         <text class="file" x="1490" y="525" text-anchor="middle" style="fill:#333">op ELKE pagina</text>
 
         <!-- ===== Legenda ===== -->
-        <rect x="1300" y="840" width="370" height="120" fill="#fff" stroke="#bbb"/>
-        <text class="title" x="1315" y="865">Legenda</text>
-        <line class="link" x1="1315" y1="890" x2="1375" y2="890" marker-end="url(#pijl)"/>
-        <text class="file" x="1385" y="894" style="fill:#333">klik op link of knop</text>
-        <line class="post" x1="1315" y1="915" x2="1375" y2="915" marker-end="url(#pijl-blauw)"/>
-        <text class="file" x="1385" y="919" style="fill:#333">formulier versturen (POST, PHP)</text>
-        <line class="server" x1="1315" y1="940" x2="1375" y2="940" marker-end="url(#pijl-grijs)"/>
-        <text class="file" x="1385" y="944" style="fill:#333">automatisch door PHP (redirect / 404)</text>
+        <rect x="1180" y="1460" width="420" height="145" fill="#fff" stroke="#bbb"/>
+        <text class="title" x="1195" y="1485">Legenda</text>
+        <line class="link" x1="1195" y1="1510" x2="1255" y2="1510" marker-end="url(#pijl)"/>
+        <text class="file" x="1265" y="1514" style="fill:#333">klik op link of knop</text>
+        <line class="post" x1="1195" y1="1535" x2="1255" y2="1535" marker-end="url(#pijl-blauw)"/>
+        <text class="file" x="1265" y="1539" style="fill:#333">formulier versturen (POST, PHP)</text>
+        <line class="server" x1="1195" y1="1560" x2="1255" y2="1560" marker-end="url(#pijl-grijs)"/>
+        <text class="file" x="1265" y="1564" style="fill:#333">automatisch doorgestuurd (redirect / 404)</text>
+        <rect x="1195" y="1576" width="60" height="18" fill="#fafafa" stroke="#333" stroke-width="2" style="stroke-dasharray:7 5"/>
+        <text class="file" x="1265" y="1590" style="fill:#333">gestippelde rand: geen gewone pagina (404 / Mollie)</text>
     </svg>
 
     <table class="rel-table">
@@ -257,20 +345,30 @@
             <tr><th>#</th><th>Van (wireframe)</th><th>Element</th><th>Naar</th><th>Type</th><th>Wat gebeurt er?</th></tr>
         </thead>
         <tbody>
-            <tr><td>①</td><td>Home (01/02)</td><td>Knop "Bekijk de kamado's" in de hero</td><td>Kamado's (03)</td><td><span class="type t-link">link</span></td><td>Gewone link naar <b>kamados.php</b>.</td></tr>
-            <tr><td>②</td><td>Home (01/02)</td><td>Knop "Bekijk details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Link met het id van het product, bijv. <b>product.php?id=blue-l</b>.</td></tr>
-            <tr><td>③</td><td>Home (01/02)</td><td>Knop "Masterclasses" / "Inschrijven" op een masterclass-kaart</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Bij "Inschrijven" gaat het id mee (<b>?class=low-slow#inschrijven</b>): de juiste masterclass staat dan al gekozen en de pagina springt naar het formulier.</td></tr>
-            <tr><td>④</td><td>Kamado's (03)</td><td>Knop "Bekijk details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde productkaart als op Home (één include: <b>kamado-kaart.php</b>).</td></tr>
+            <tr><td>①</td><td>Home (01/02)</td><td>Knop "Shop de kamado's" in de hero</td><td>Kamado's (03)</td><td><span class="type t-link">link</span></td><td>Gewone link naar <b>/kamados</b>.</td></tr>
+            <tr><td>②</td><td>Home (01/02)</td><td>Knop "Details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Link met het id van het product in de URL, bijv. <b>/kamados/blue-l</b>.</td></tr>
+            <tr><td>③</td><td>Home (01/02)</td><td>Knop "Masterclasses" / "Inschrijven" op een masterclass-kaart</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Bij "Inschrijven" gaat het id mee (<b>/masterclasses?class=low-slow#inschrijven</b>): de juiste masterclass staat dan al gekozen en de pagina springt naar het formulier.</td></tr>
+            <tr><td>④</td><td>Kamado's (03)</td><td>Knop "Details" op een productkaart</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde productkaart als op Home (één include: <b>kamado-kaart.php</b>).</td></tr>
             <tr><td>⑤</td><td>Productdetail (04)</td><td>Kruimelpad "Home / Kamado's"</td><td>Kamado's (03) of Home</td><td><span class="type t-link">link</span></td><td>Terug naar het overzicht.</td></tr>
-            <tr><td>⑥</td><td>Productdetail (04)</td><td>"Andere kamado's" onderaan</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde pagina, ander <b>?id=</b>. Het huidige product wordt overgeslagen.</td></tr>
-            <tr><td>⑦</td><td>Productdetail (04)</td><td>Knop "Eerst een masterclass?"</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Voor klanten die twijfelen: eerst leren, dan kopen.</td></tr>
-            <tr><td>⑧</td><td>Productdetail (04)</td><td>Onbekend of leeg <b>?id=</b></td><td>404-melding</td><td><span class="type t-server">PHP</span></td><td>PHP vindt het id niet in <b>data.php</b> en toont een nette 404 met een knop naar Kamado's.</td></tr>
+            <tr><td>⑥</td><td>Productdetail (04)</td><td>"Andere kamado's" onderaan</td><td>Productdetail (04)</td><td><span class="type t-link">link</span></td><td>Zelfde pagina, ander product in de URL. Het huidige product wordt overgeslagen.</td></tr>
+            <tr><td>⑦</td><td>Productdetail (04)</td><td>Link "Volg een masterclass"</td><td>Masterclasses (05)</td><td><span class="type t-link">link</span></td><td>Voor klanten die twijfelen: eerst leren, dan kopen.</td></tr>
+            <tr><td>⑧</td><td>Productdetail (04)</td><td>Onbekend product in de URL (bijv. <b>/kamados/xyz</b>)</td><td>404-melding</td><td><span class="type t-server">PHP</span></td><td>PHP vindt het id niet in <b>data.php</b> en toont een nette 404 met een knop naar Kamado's. Elke andere onbekende URL krijgt ook een 404.</td></tr>
             <tr><td>⑨</td><td>Masterclasses (05/06)</td><td>Knop "Inschrijven" met fouten</td><td>Masterclasses (05/06)</td><td><span class="type t-post">POST</span></td><td>PHP controleert <b>$_POST</b>. Bij fouten komt dezelfde pagina terug met meldingen; ingevulde waarden blijven staan. (JavaScript vangt de meeste fouten al eerder af.)</td></tr>
-            <tr><td>⑩</td><td>Masterclasses (05/06)</td><td>Knop "Inschrijven" goed ingevuld</td><td>Bevestiging (06)</td><td><span class="type t-post">POST</span></td><td>PHP slaat de inschrijving op, zet de gegevens in de sessie en stuurt door (redirect) naar <b>bevestiging.php</b>.</td></tr>
+            <tr><td>⑩</td><td>Masterclasses (05/06)</td><td>Knop "Inschrijven" goed ingevuld</td><td>Bevestiging (06)</td><td><span class="type t-post">POST</span></td><td>PHP slaat de inschrijving op, zet de gegevens in de sessie en stuurt door (redirect) naar <b>/bevestiging</b>.</td></tr>
             <tr><td>⑪</td><td>Bevestiging (06)</td><td>Pagina direct geopend (zonder inschrijving)</td><td>Masterclasses (05)</td><td><span class="type t-server">PHP</span></td><td>Er staat niets in de sessie → automatisch terug naar het formulier.</td></tr>
             <tr><td>⑫</td><td>Bevestiging (06)</td><td>Knoppen "Terug naar home" / "Bekijk de kamado's"</td><td>Home (01) / Kamado's (03)</td><td><span class="type t-link">link</span></td><td>Einde van de inschrijfstroom.</td></tr>
             <tr><td>⑬</td><td>Alle pagina's (footer)</td><td>Link "Fotobronnen"</td><td>Fotobronnen</td><td><span class="type t-link">link</span></td><td>Licenties van de gebruikte foto's.</td></tr>
-            <tr><td>–</td><td>Alle pagina's (header)</td><td>Menu: Home · Kamado's · Masterclasses · Inschrijven</td><td>Home / Kamado's / Masterclasses</td><td><span class="type t-link">link</span></td><td>Staat in <b>header.php</b>, dus elke pagina is vanaf elke pagina bereikbaar. Op mobiel achter het hamburgermenu (02).</td></tr>
+            <tr><td>⑭</td><td>Home (01/02), Kamado's (03), Productdetail (04)</td><td>Knop "Bestellen" op een product- of accessoirekaart, of in het bestelblok</td><td>Winkelwagen (07)</td><td><span class="type t-post">POST</span></td><td>Het product gaat in de winkelwagen in de sessie. Met JavaScript blijft de bezoeker op de pagina en verschijnt een melding met een knop "Naar winkelwagen"; zonder JavaScript gaat hij naar <b>/winkelwagen</b>.</td></tr>
+            <tr><td>⑮</td><td>Winkelwagen (07)</td><td>Aantal wijzigen of prullenbak</td><td>Winkelwagen (07)</td><td><span class="type t-post">POST</span></td><td>Aantallen worden opgeslagen (max. 10, 0 = verwijderen) en de pagina komt terug met nieuwe totalen.</td></tr>
+            <tr><td>⑯</td><td>Winkelwagen (07)</td><td>Knop "Afrekenen"</td><td>Afrekenen (08)</td><td><span class="type t-link">link</span></td><td>Is de winkelwagen leeg, dan stuurt <b>/afrekenen</b> automatisch terug naar de winkelwagen.</td></tr>
+            <tr><td>⑰</td><td>Afrekenen (08)</td><td>Knop "Bestellen en betalen" met fouten</td><td>Afrekenen (08)</td><td><span class="type t-post">POST</span></td><td>Zelfde aanpak als het masterclassformulier: meldingen bij de velden, ingevulde waarden blijven staan.</td></tr>
+            <tr><td>⑱</td><td>Afrekenen (08)</td><td>"Bestellen en betalen" goed ingevuld (online betalen)</td><td>Betalen bij Mollie (09)</td><td><span class="type t-post">POST</span></td><td>PHP slaat de bestelling op in <b>data/bestellingen/</b>, maakt een betaling aan bij Mollie en stuurt de klant naar de betaalpagina. Zonder Mollie-sleutel (demo): eigen betaalstap <b>/betalen/{nr}</b>.</td></tr>
+            <tr><td>⑲</td><td>Afrekenen (08)</td><td>"Bestelling plaatsen" met afhalen + betalen bij afhalen</td><td>Bestelling bevestigd (09)</td><td><span class="type t-post">POST</span></td><td>Geen online betaling nodig: de bestelling wordt opgeslagen en de klant gaat direct naar <b>/bestelling/{nr}</b>.</td></tr>
+            <tr><td>⑳</td><td>Betalen bij Mollie (09)</td><td>Na betalen of annuleren</td><td>Bestelling (09)</td><td><span class="type t-server">extern</span></td><td>Mollie stuurt de klant terug naar <b>/bestelling/{nr}</b>; PHP vraagt de status op bij Mollie. Mollie meldt de status ook zelf via <b>/mollie-webhook</b>.</td></tr>
+            <tr><td>㉑</td><td>Bestelling (09), betaling mislukt</td><td>Knop "Opnieuw proberen"</td><td>Afrekenen (08)</td><td><span class="type t-link">link</span></td><td>De winkelwagen en ingevulde gegevens staan nog klaar. Is de betaling gelukt, dan wordt de winkelwagen geleegd en komt de bestelling in <b>bestellingen.csv</b>.</td></tr>
+            <tr><td>㉒</td><td>Alle pagina's (footer), Afrekenen (08)</td><td>Link "Voorwaarden" / "Bezorgen &amp; retourneren"</td><td>Voorwaarden</td><td><span class="type t-link">link</span></td><td>Bezorgen, betalen, 14 dagen bedenktijd, garantie en privacy. Bij het afrekenen opent de link in een nieuw tabblad.</td></tr>
+            <tr><td>–</td><td>Alle pagina's (header)</td><td>Menu: Home · Kamado's · Masterclasses · Inschrijven + winkelwagen-icoon</td><td>Home / Kamado's / Masterclasses / Winkelwagen</td><td><span class="type t-link">link</span></td><td>Staat in <b>header.php</b>, dus elke pagina is vanaf elke pagina bereikbaar. Op mobiel achter het hamburgermenu (02); het winkelwagen-icoon blijft altijd zichtbaar.</td></tr>
+            <tr><td>–</td><td>Oude links (bijv. <b>kamados.php</b>, <b>product.php?id=blue-l</b>)</td><td>URL met .php</td><td>Nieuwe URL zonder .php</td><td><span class="type t-server">PHP</span></td><td>De router (<b>index.php</b>) stuurt oude links door (301) naar de nette URL, zodat bestaande links blijven werken.</td></tr>
         </tbody>
     </table>
 </div>
@@ -280,12 +378,12 @@
      ========================================================= -->
 <div class="wf" id="home-desktop">
     <p class="wf-title">Home – desktop</p>
-    <p class="wf-sub">Kamado Breda · wireframe 1200 px · index.php</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · URL: / · pages/home.php</p>
     <div class="wf-row">
         <div class="frame desktop">
             <div class="header rel"><span class="n pin">1</span>
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div class="nav"><span class="act">Home</span><span>Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+                <div class="nav"><span class="act">Home</span><span>Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
             </div>
             <div class="img rel" style="height:440px;"><span class="n pin" style="right:20px;top:10px">2</span>
                 <span>hero-foto winkel Joris (donkere overlay)</span>
@@ -293,7 +391,8 @@
                     <div class="small">Speciaalzaak in Breda</div>
                     <div class="h1">Blauwe kamado's.<br>Echt vuur.</div>
                     <div class="line w90"></div><div class="line w70"></div>
-                    <div class="btns"><span class="btn fill">Bekijk de kamado's</span><span class="btn">Masterclasses</span></div>
+                    <div class="btns"><span class="btn fill">Shop de kamado's</span><span class="btn">Masterclasses</span></div>
+                    <div style="font-size:12px;margin-top:14px;color:#555">✓ Garantie op keramiek &nbsp; ✓ Bezorging regio Breda &nbsp; ✓ Veilig betalen met iDEAL</div>
                 </div>
             </div>
             <div class="sec dark rel"><span class="n pin" style="right:20px">3</span>
@@ -304,22 +403,24 @@
                 </div>
             </div>
             <div class="sec rel"><span class="n pin" style="right:20px">4</span>
-                <div class="small">Het assortiment</div>
-                <div class="h2">Onze kamado's</div>
-                <div class="line w50"></div>
+                <div class="flex" style="align-items:flex-end">
+                    <div style="width:60%"><div class="small">Het assortiment</div><div class="h2">Onze kamado's</div><div class="line w80"></div></div>
+                    <b style="font-size:13px">ALLES BEKIJKEN →</b>
+                </div>
                 <div class="grid g3" style="margin-top:20px">
-                    <div class="card"><div class="img" style="height:230px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w80"></div><div class="h3">€ 899,-</div><span class="btn">Bekijk details</span></div></div>
-                    <div class="card"><div class="img" style="height:230px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w80"></div><div class="h3">€ 1.299,-</div><span class="btn">Bekijk details</span></div></div>
-                    <div class="card"><div class="img" style="height:230px"><span>foto Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w80"></div><div class="h3">€ 1.849,-</div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w80"></div><div class="h3">€ 899,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w80"></div><div class="h3">€ 1.299,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                    <div class="card"><div class="img" style="height:230px"><span>foto Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w80"></div><div class="h3">€ 1.849,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
                 </div>
             </div>
             <div class="sec darker rel"><span class="n pin" style="right:20px">5</span>
-                <div class="small">Leren van de pitmaster</div>
-                <div class="h2">Komende masterclasses</div>
+                <div class="flex" style="align-items:flex-end">
+                    <div style="width:60%"><div class="small">Leren van de pitmaster</div><div class="h2">Komende masterclasses</div></div>
+                    <b style="font-size:13px">HELE AGENDA →</b>
+                </div>
                 <div class="grid g3" style="margin-top:20px">
-                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 1</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 95,-</b><span class="badge">nog 4 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
-                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 2</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 149,-</b><span class="badge">nog 7 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
-                    <div class="card"><div class="img" style="height:150px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 3</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 119,-</b><span class="badge">nog 10 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:150px"><span>foto + 14 nov</span></div><div class="body"><div class="h3">Low &amp; Slow: Brisket &amp; Ribs</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 149,-</b><span class="badge">nog 7 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
+                    <div class="card"><div class="img" style="height:150px"><span>foto + 12 dec</span></div><div class="body"><div class="h3">Winter BBQ &amp; Gietijzer</div><div class="line w90"></div><div class="line w60"></div><div class="flex"><b>€ 119,-</b><span class="badge">nog 10 plekken</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
                 </div>
             </div>
             <div class="sec">
@@ -341,18 +442,19 @@
             <div class="footer rel"><span class="n pin" style="right:20px">6</span>
                 <div><div class="logo"><i></i></div><div class="line w70"></div><div class="line w50"></div></div>
                 <div><div class="h3">Winkel</div><div class="line w70"></div><div class="line w60"></div><div class="line w80"></div></div>
-                <div><div class="h3">Contact</div><div class="line w60"></div><div class="line w70"></div><div class="h3">Menu</div><div class="line w40"></div></div>
+                <div><div class="h3">Contact</div><div class="line w60"></div><div class="line w70"></div></div>
+                <div><div class="h3">Webshop</div><div class="line w60"></div><div class="line w80"></div><div class="line w60"></div><div class="line w80"></div></div>
             </div>
         </div>
         <div class="notes">
             <h4>Toelichting</h4>
             <ol>
-                <li><span class="n">1</span> Header staat in <b>header.php</b> en blijft bovenaan staan bij scrollen (sticky). Actieve pagina onderstreept.</li>
-                <li><span class="n">2</span> Grote foto van de winkel van Joris. Donkere laag zodat de witte tekst leesbaar is. Twee knoppen: naar de producten en naar de masterclasses.</li>
+                <li><span class="n">1</span> Header staat in <b>header.php</b> en blijft bovenaan staan bij scrollen (sticky, half doorzichtig). Actieve pagina onderstreept. Rechts het <b>winkelwagen-icoon</b> met het aantal artikelen (→ /winkelwagen).</li>
+                <li><span class="n">2</span> Grote foto van de winkel van Joris. Donkere laag zodat de witte tekst leesbaar is. Twee knoppen: naar de webshop en naar de masterclasses. Daaronder drie "vertrouwens"-punten.</li>
                 <li><span class="n">3</span> Blauwe balk met de 3 sterke punten van de winkel.</li>
-                <li><span class="n">4</span> Productkaarten komen uit de array in <b>data.php</b> (foreach).</li>
-                <li><span class="n">5</span> Donkere sectie: agenda met de eerstvolgende masterclasses, knop gaat direct naar het formulier.</li>
-                <li><span class="n">6</span> Footer staat in <b>footer.php</b>: adres, openingstijden, contact en menu.</li>
+                <li><span class="n">4</span> Productkaarten komen uit de array in <b>data.php</b> (foreach). <b>Bestellen</b> zet de kamado in de winkelwagen zonder de pagina te herladen (JavaScript); <b>Details</b> gaat naar /kamados/blue-m enz.</li>
+                <li><span class="n">5</span> Donkere sectie: agenda met de eerstvolgende masterclasses. Masterclasses waarvan de datum voorbij is, verdwijnen automatisch.</li>
+                <li><span class="n">6</span> Footer staat in <b>footer.php</b>: adres, openingstijden, contact en webshop-links (kamado's, accessoires, winkelwagen, bezorgen &amp; retourneren).</li>
             </ol>
         </div>
     </div>
@@ -363,12 +465,12 @@
      ========================================================= -->
 <div class="wf" id="home-mobiel">
     <p class="wf-title">Home – mobiel</p>
-    <p class="wf-sub">Kamado Breda · wireframe 375 px · index.php</p>
+    <p class="wf-sub">Kamado Breda · wireframe 375 px · URL: / · pages/home.php</p>
     <div class="wf-row">
         <div class="frame mobile m">
             <div class="header rel"><span class="n pin">1</span>
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div class="burger"><b></b><b></b><b></b></div>
+                <div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div>
             </div>
             <div class="img" style="height:420px;">
                 <span style="top:30px">hero-foto</span>
@@ -376,7 +478,7 @@
                     <div class="small">Speciaalzaak in Breda</div>
                     <div class="h1">Blauwe kamado's. Echt vuur.</div>
                     <div class="line w90"></div><div class="line w60"></div>
-                    <div class="btns"><span class="btn fill">Bekijk de kamado's</span><span class="btn">Masterclasses</span></div>
+                    <div class="btns"><span class="btn fill">Shop de kamado's</span><span class="btn">Masterclasses</span></div>
                 </div>
             </div>
             <div class="sec dark">
@@ -387,14 +489,14 @@
             <div class="sec rel"><span class="n pin" style="right:8px">2</span>
                 <div class="h2">Onze kamado's</div>
                 <div class="line w90"></div>
-                <div class="card" style="margin-top:16px"><div class="img" style="height:200px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M · € 899,-</div><span class="btn">Bekijk details</span></div></div>
-                <div class="card" style="margin-top:12px"><div class="img" style="height:200px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L · € 1.299,-</div><span class="btn">Bekijk details</span></div></div>
+                <div class="card" style="margin-top:16px"><div class="img" style="height:200px"><span>foto Blue M</span></div><div class="body"><div class="h3">Blue M · € 899,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                <div class="card" style="margin-top:12px"><div class="img" style="height:200px"><span>foto Blue L</span></div><div class="body"><div class="h3">Blue L · € 1.299,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
                 <div class="card" style="margin-top:12px"><div class="img" style="height:60px"><span>Blue XL …</span></div></div>
             </div>
             <div class="sec darker">
                 <div class="h2">Masterclasses</div>
-                <div class="card"><div class="img" style="height:120px"><span>foto + datum</span></div><div class="body"><div class="h3">Masterclass 1</div><div class="line w90"></div><span class="btn fill">Inschrijven</span></div></div>
-                <div class="card" style="margin-top:12px"><div class="img" style="height:50px"><span>Masterclass 2 …</span></div></div>
+                <div class="card"><div class="img" style="height:120px"><span>foto + datum</span></div><div class="body"><div class="h3">Low &amp; Slow</div><div class="line w90"></div><span class="btn fill">Inschrijven</span></div></div>
+                <div class="card" style="margin-top:12px"><div class="img" style="height:50px"><span>Winter BBQ …</span></div></div>
             </div>
             <div class="sec">
                 <div class="img" style="height:200px"><span>foto Joris</span></div>
@@ -411,7 +513,7 @@
             <span class="n pin">1</span>
             <div class="header">
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div style="font-size:30px;font-weight:bold">✕</div>
+                <div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div style="font-size:30px;font-weight:bold">✕</div></div>
             </div>
             <div class="darker" style="padding:8px 16px 20px;">
                 <div style="padding:12px 0;border-bottom:1px solid #888;font-weight:bold">HOME</div>
@@ -424,7 +526,7 @@
         <div class="notes">
             <h4>Toelichting</h4>
             <ol>
-                <li><span class="n">1</span> Op mobiel is het menu verborgen achter een hamburger-icoon. Klik = menu klapt open en het icoon wordt een kruisje (JavaScript, rechts afgebeeld).</li>
+                <li><span class="n">1</span> Op mobiel is het menu verborgen achter een hamburger-icoon. Klik = menu klapt open en het icoon wordt een kruisje (JavaScript, rechts afgebeeld). Het winkelwagen-icoon blijft altijd zichtbaar naast de hamburger.</li>
                 <li><span class="n">2</span> Alle kaarten staan onder elkaar (1 kolom). Vanaf 700 px 2 kolommen, vanaf 1000 px 3 kolommen.</li>
             </ol>
         </div>
@@ -436,12 +538,12 @@
      ========================================================= -->
 <div class="wf" id="kamados-desktop">
     <p class="wf-title">Kamado's (overzicht) – desktop</p>
-    <p class="wf-sub">Kamado Breda · wireframe 1200 px · kamados.php</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · URL: /kamados · pages/kamados.php</p>
     <div class="wf-row">
         <div class="frame desktop">
             <div class="header">
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
             </div>
             <div class="sec darker">
                 <div class="small">Het assortiment</div>
@@ -459,19 +561,22 @@
             <div class="sec dark">
                 <div class="h2">Kies jouw formaat</div>
                 <div class="grid g3">
-                    <div class="card"><div class="img" style="height:240px"><span>Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
-                    <div class="card"><div class="img" style="height:240px"><span>Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
-                    <div class="card"><div class="img" style="height:240px"><span>Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w70"></div><span class="btn">Bekijk details</span></div></div>
+                    <div class="card"><div class="img" style="height:240px"><span>Blue M</span></div><div class="body"><div class="h3">Blue M</div><div class="line w70"></div><div class="h3">€ 899,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                    <div class="card"><div class="img" style="height:240px"><span>Blue L</span></div><div class="body"><div class="h3">Blue L</div><div class="line w70"></div><div class="h3">€ 1.299,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                    <div class="card"><div class="img" style="height:240px"><span>Blue XL</span></div><div class="body"><div class="h3">Blue XL</div><div class="line w70"></div><div class="h3">€ 1.849,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
                 </div>
             </div>
-            <div class="sec rel"><span class="n pin" style="right:20px">2</span>
+            <div class="sec rel" style="padding-bottom:90px"><span class="n pin" style="right:20px">2</span>
+                <div class="small">Maak het compleet</div>
                 <div class="h2">Gietijzer &amp; accessoires</div>
                 <div class="grid g4">
-                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 59,-</b></div></div>
-                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 129,-</b></div></div>
-                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 79,-</b></div></div>
-                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Accessoire</div><div class="line w80"></div><b>€ 24,-</b></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Gietijzeren skillet</div><div class="line w80"></div><div class="h3">€ 59,-</div><span class="btn fill">Bestellen</span></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Gietijzer set</div><div class="line w80"></div><div class="h3">€ 129,-</div><span class="btn fill">Bestellen</span></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Plancha / grillpan</div><div class="line w80"></div><div class="h3">€ 79,-</div><span class="btn fill">Bestellen</span></div></div>
+                    <div class="card"><div class="img" style="height:130px"></div><div class="body"><div class="h3">Houtskool 10 kg</div><div class="line w80"></div><div class="h3">€ 24,-</div><span class="btn fill">Bestellen</span></div></div>
                 </div>
+                <div class="line w60" style="margin-top:16px"></div>
+                <div class="toast"><span class="n pin">3</span><span>✓ Gietijzer set is toegevoegd</span><span class="btn">Naar winkelwagen</span></div>
             </div>
             <div class="footer">
                 <div><div class="logo"><i></i></div><div class="line w70"></div></div>
@@ -483,7 +588,8 @@
             <h4>Toelichting</h4>
             <ol>
                 <li><span class="n">1</span> <b>Interactieve galerij (JavaScript):</b> klik op een thumbnail of de pijlen → grote foto wisselt zonder dat de pagina herlaadt. Teller laat zien welke foto. Pijltjestoetsen en vegen op mobiel werken ook. ⛶ = foto vergroten (lightbox).</li>
-                <li><span class="n">2</span> Accessoires: 4 kolommen op desktop, 2 op tablet, 1 op mobiel.</li>
+                <li><span class="n">2</span> Accessoires: 4 kolommen op desktop, 2 op tablet, 1 op mobiel. Ook de accessoires zijn nu online te bestellen.</li>
+                <li><span class="n">3</span> <b>Melding na "Bestellen" (JavaScript):</b> het product gaat via fetch (POST) naar de winkelwagen, de pagina blijft staan. Rechtsonder verschijnt een melding met een knop naar de winkelwagen en het getal bij het winkelwagen-icoon telt op. Zonder JavaScript werkt de knop als gewoon formulier.</li>
             </ol>
         </div>
     </div>
@@ -494,12 +600,12 @@
      ========================================================= -->
 <div class="wf" id="product">
     <p class="wf-title">Productdetail – desktop &amp; mobiel</p>
-    <p class="wf-sub">Kamado Breda · product.php?id=blue-l (één bestand voor alle kamado's)</p>
+    <p class="wf-sub">Kamado Breda · URL: /kamados/blue-l · pages/product.php (één bestand voor alle kamado's)</p>
     <div class="wf-row">
         <div class="frame desktop">
             <div class="header">
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+                <div class="nav"><span>Home</span><span class="act">Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
             </div>
             <div class="sec">
                 <div class="rel" style="font-size:13px;margin-bottom:16px;"><u>Home</u> / <u>Kamado's</u> / Blue L <span class="n" style="margin-left:8px">1</span></div>
@@ -511,12 +617,16 @@
                     <div>
                         <span class="badge">BESTSELLER</span>
                         <div class="h1" style="margin-top:10px">Kamado Breda Blue L</div>
-                        <div class="h2">€ 1.299,-</div>
+                        <div class="h2">€ 1.299,- <small style="font-size:12px;font-weight:normal;text-transform:none">incl. btw</small></div>
                         <div class="line w90"></div><div class="line w80"></div><div class="line w90"></div><div class="line w50"></div>
                         <div style="margin-top:16px">✓ <span class="line w60" style="display:inline-block;margin:0"></span></div>
                         <div>✓ <span class="line w50" style="display:inline-block;margin:0"></span></div>
                         <div>✓ <span class="line w70" style="display:inline-block;margin:0"></span></div>
-                        <div class="btns"><span class="btn fill">Vraag offerte aan</span><span class="btn">Eerst een masterclass?</span></div>
+                        <div class="rel" style="border:1px solid #999;background:#eee;padding:14px;margin-top:16px"><span class="n pin">3</span>
+                            <div class="gap"><span class="qty">1</span><span class="btn fill" style="flex:1;text-align:center;padding:10px">Bestellen</span></div>
+                            <div style="font-size:12px;margin-top:10px">● Op voorraad in de winkel<br>✓ Gratis bezorging regio Breda of ophalen<br>✓ Veilig betalen met iDEAL, creditcard en meer</div>
+                        </div>
+                        <div style="font-size:12px;margin-top:10px">Liever eerst proberen? <u>Volg een masterclass</u> of mail ons.</div>
                     </div>
                 </div>
             </div>
@@ -531,8 +641,8 @@
                     <div>
                         <div class="h2">Andere kamado's</div>
                         <div class="grid g2">
-                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue M</div><span class="btn">Bekijk</span></div></div>
-                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue XL</div><span class="btn">Bekijk</span></div></div>
+                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue M · € 899,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
+                            <div class="card"><div class="img" style="height:150px"></div><div class="body"><div class="h3">Blue XL · € 1.849,-</div><div class="gap"><span class="btn fill">Bestellen</span><span class="btn">Details</span></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -542,7 +652,7 @@
             </div>
         </div>
         <div class="frame mobile m">
-            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div></div>
             <div class="sec">
                 <div style="font-size:12px;margin-bottom:12px"><u>Home</u> / <u>Kamado's</u> / Blue L</div>
                 <div class="img gal-main"><span>galerij</span><div class="arrow l">‹</div><div class="arrow r">›</div><div class="counter">1 / 5</div></div>
@@ -551,7 +661,7 @@
                 <div class="h1" style="margin-top:8px">Blue L</div>
                 <div class="h2">€ 1.299,-</div>
                 <div class="line w90"></div><div class="line w80"></div><div class="line w60"></div>
-                <div class="btns"><span class="btn fill">Vraag offerte aan</span></div>
+                <div style="border:1px solid #999;background:#eee;padding:12px;margin-top:12px"><div class="gap"><span class="qty">1</span><span class="btn fill" style="flex:1;text-align:center;padding:10px">Bestellen</span></div><div style="font-size:11px;margin-top:8px">● Op voorraad · ✓ Gratis bezorging regio Breda</div></div>
             </div>
             <div class="sec dark">
                 <div class="h2">Specificaties</div>
@@ -562,7 +672,8 @@
             <h4>Toelichting</h4>
             <ol>
                 <li><span class="n">1</span> Kruimelpad zodat de bezoeker weet waar hij is en makkelijk terug kan.</li>
-                <li><span class="n">2</span> Specificaties in een tabel. Alle gegevens komen uit <b>data.php</b>. Bestaat het id niet → 404-pagina.</li>
+                <li><span class="n">2</span> Specificaties in een tabel. Alle gegevens komen uit <b>data.php</b>. Bestaat het product niet (bijv. /kamados/onbekend) → 404-pagina.</li>
+                <li><span class="n">3</span> <b>Bestelblok:</b> aantal kiezen (max. 10) + knop Bestellen. Zet het product in de winkelwagen, met dezelfde melding als op de overzichtspagina. Daaronder voorraad, bezorging en betaalmogelijkheden. De oude knop "Vraag offerte aan" is vervangen door een tekstlink naar de masterclasses.</li>
                 <li>Mobiel: galerij boven, daaronder tekst, knoppen en specificaties.</li>
             </ol>
         </div>
@@ -574,12 +685,12 @@
      ========================================================= -->
 <div class="wf" id="masterclass-desktop">
     <p class="wf-title">Masterclasses + inschrijfformulier – desktop</p>
-    <p class="wf-sub">Kamado Breda · wireframe 1200 px · masterclass.php</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · URL: /masterclasses · pages/masterclasses.php</p>
     <div class="wf-row">
         <div class="frame desktop">
             <div class="header">
                 <div class="logo"><i></i> KAMADO BREDA</div>
-                <div class="nav"><span>Home</span><span>Kamado's</span><span class="act">Masterclasses</span><span class="btn fill">Inschrijven</span></div>
+                <div class="nav"><span>Home</span><span>Kamado's</span><span class="act">Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
             </div>
             <div class="img" style="height:200px"><span style="left:auto;right:20px;transform:translateY(-50%)">achtergrondfoto brisket</span>
                 <div style="position:absolute;left:40px;top:40px;width:520px;background:#fafafa;border:1px solid #999;padding:16px 20px">
@@ -589,7 +700,6 @@
             <div class="sec">
                 <div class="h2">Agenda</div>
                 <div class="grid g3">
-                    <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Kamado Basics</div><div class="line w90"></div><div class="flex"><b>€ 95,-</b><span class="badge">nog 4</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
                     <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Low &amp; Slow</div><div class="line w90"></div><div class="flex"><b>€ 149,-</b><span class="badge">nog 7</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
                     <div class="card"><div class="img" style="height:140px"><span>datum</span></div><div class="body"><div class="h3">Winter BBQ</div><div class="line w90"></div><div class="flex"><b>€ 119,-</b><span class="badge">nog 10</span></div><div class="btns"><span class="btn fill">Inschrijven</span></div></div></div>
                 </div>
@@ -636,6 +746,7 @@
                 <li><span class="n">1</span> Formulier met <b>method="post"</b>. PHP controleert alle velden via <b>$_POST</b>. Bij een fout: rode rand + melding onder het veld, ingevulde waarden blijven staan.</li>
                 <li><span class="n">2</span> Samenvatting (JavaScript): past zich direct aan als je een masterclass of het aantal personen kiest en rekent de totaalprijs uit. Blijft meeschuiven bij scrollen.</li>
                 <li>Op mobiel staat de samenvatting onder het formulier en staan alle velden onder elkaar.</li>
+                <li>Masterclasses waarvan de datum voorbij is (zoals Kamado Basics op 24 okt) staan niet meer in de agenda en de keuzelijst.</li>
             </ol>
         </div>
     </div>
@@ -646,10 +757,10 @@
      ========================================================= -->
 <div class="wf" id="masterclass-mobiel">
     <p class="wf-title">Formulier &amp; bevestiging – mobiel</p>
-    <p class="wf-sub">Kamado Breda · wireframe 375 px · masterclass.php → bevestiging.php</p>
+    <p class="wf-sub">Kamado Breda · wireframe 375 px · /masterclasses → /bevestiging</p>
     <div class="wf-row">
         <div class="frame mobile m">
-            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div></div>
             <div class="sec">
                 <div class="h2">Inschrijven</div>
                 <div style="background:#eee;border:1px solid #999;padding:14px">
@@ -669,7 +780,7 @@
         </div>
         <div style="font-size:40px;align-self:center">→</div>
         <div class="frame mobile m">
-            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="burger"><b></b><b></b><b></b></div></div>
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div></div>
             <div class="sec center rel"><span class="n pin" style="right:8px">1</span>
                 <div class="check-ok">✓</div>
                 <div class="h1">Bedankt, {voornaam}!</div>
@@ -685,7 +796,213 @@
         <div class="notes">
             <h4>Toelichting</h4>
             <ol>
-                <li><span class="n">1</span> <b>bevestiging.php</b> is dynamisch: alles tussen { } wordt door PHP ingevuld met wat de bezoeker net heeft ingevuld. Wie deze pagina opent zonder in te schrijven, gaat terug naar het formulier.</li>
+                <li><span class="n">1</span> <b>/bevestiging</b> is dynamisch: alles tussen { } wordt door PHP ingevuld met wat de bezoeker net heeft ingevuld. Wie deze pagina opent zonder in te schrijven, gaat terug naar het formulier.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     WINKELWAGEN – DESKTOP + MOBIEL
+     ========================================================= -->
+<div class="wf" id="winkelwagen">
+    <p class="wf-title">Winkelwagen – desktop &amp; mobiel</p>
+    <p class="wf-sub">Kamado Breda · URL: /winkelwagen · pages/winkelwagen.php</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span>Home</span><span>Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
+            </div>
+            <div class="sec">
+                <div class="steps rel"><span class="n pin" style="right:auto;left:400px;top:0">1</span><span class="on"><i>1</i> Winkelwagen</span><hr><span><i>2</i> Gegevens</span><hr><span><i>3</i> Betalen</span></div>
+                <div class="h1">Winkelwagen</div>
+                <div class="grid" style="grid-template-columns:1.8fr 1fr;gap:40px;align-items:start">
+                    <div class="rel"><span class="n pin">2</span>
+                        <div style="border-top:1px solid #bbb">
+                            <div class="row-item"><div class="img" style="height:70px"></div><div><b>Kamado Breda Blue L</b><br><span style="color:#777">€ 1.299,- per stuk</span></div><span class="qty">1</span><b style="text-align:right">€ 1.299,-</b><b>✕</b></div>
+                            <div class="row-item"><div class="img" style="height:70px"></div><div><b>Gietijzeren skillet</b><br><span style="color:#777">€ 59,- per stuk</span></div><span class="qty">1</span><b style="text-align:right">€ 59,-</b><b>✕</b></div>
+                        </div>
+                        <div style="margin-top:16px;font-size:13px;font-weight:bold">← VERDER WINKELEN</div>
+                    </div>
+                    <div class="summary rel"><span class="n pin">3</span>
+                        <div class="h3">OVERZICHT</div>
+                        <div class="flex" style="font-size:13px;margin-top:8px"><span>Subtotaal</span><b>€ 1.358,-</b></div>
+                        <div class="flex" style="font-size:13px;margin-top:6px"><span>Bezorgen</span><b>Gratis</b></div>
+                        <div class="flex" style="font-size:13px;margin-top:6px"><span>Ophalen in de winkel</span><b>Gratis</b></div>
+                        <div class="flex" style="border-top:1px solid #333;margin-top:14px;padding-top:12px"><b>TOTAAL</b><b>€ 1.358,-</b></div>
+                        <div style="font-size:11px;margin:4px 0 14px">Incl. btw</div>
+                        <span class="btn fill big">Afrekenen</span>
+                        <div style="margin-top:10px"><span class="pay">iDEAL</span><span class="pay">Bancontact</span><span class="pay">Creditcard</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div></div>
+            <div class="sec">
+                <div class="steps"><span class="on"><i>1</i> Winkelwagen</span><hr><span><i>2</i></span><hr><span><i>3</i></span></div>
+                <div class="h1">Winkelwagen</div>
+                <div style="border-top:1px solid #bbb">
+                    <div class="row-item"><div class="img" style="height:56px"></div><div><b>Blue L</b><br><span class="qty" style="margin-top:6px">1</span></div><div style="text-align:right"><b>✕</b><br><b>€ 1.299,-</b></div></div>
+                    <div class="row-item"><div class="img" style="height:56px"></div><div><b>Skillet</b><br><span class="qty" style="margin-top:6px">1</span></div><div style="text-align:right"><b>✕</b><br><b>€ 59,-</b></div></div>
+                </div>
+                <div class="summary" style="margin-top:16px">
+                    <div class="flex"><b>TOTAAL</b><b>€ 1.358,-</b></div>
+                    <span class="btn fill big" style="margin-top:12px">Afrekenen</span>
+                </div>
+            </div>
+            <div class="sec center rel" style="background:#f0f0f0"><span class="n pin" style="right:8px">4</span>
+                <div class="cart-ic" style="width:40px;height:40px;margin:10px auto"></div>
+                <div class="h3">Je winkelwagen is nog leeg</div>
+                <div class="line w70" style="margin:8px auto"></div>
+                <div class="btns" style="justify-content:center"><span class="btn fill">Bekijk de kamado's</span></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> <b>Stappenbalk</b> boven winkelwagen, afrekenen en betalen, zodat de klant ziet hoe ver hij is.</li>
+                <li><span class="n">2</span> De winkelwagen staat in de <b>sessie</b> (<b>$_SESSION['winkelwagen']</b>). Aantal wijzigen = direct opslaan (JavaScript verstuurt het formulier). 0 of prullenbak = verwijderen. Prijzen komen altijd uit <b>data.php</b>.</li>
+                <li><span class="n">3</span> Overzicht met subtotaal en verzendkosten (€ 6,95, gratis vanaf € 100; afhalen altijd gratis). Is het bedrag onder de € 100, dan staat er "Nog € … tot gratis bezorging". Knop gaat naar /afrekenen.</li>
+                <li><span class="n">4</span> Lege winkelwagen: melding met knoppen terug naar de producten. /afrekenen met een lege winkelwagen stuurt ook hierheen terug.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     AFREKENEN – DESKTOP
+     ========================================================= -->
+<div class="wf" id="afrekenen">
+    <p class="wf-title">Afrekenen – desktop</p>
+    <p class="wf-sub">Kamado Breda · wireframe 1200 px · URL: /afrekenen · pages/afrekenen.php</p>
+    <div class="wf-row">
+        <div class="frame desktop">
+            <div class="header">
+                <div class="logo"><i></i> KAMADO BREDA</div>
+                <div class="nav"><span>Home</span><span>Kamado's</span><span>Masterclasses</span><span class="btn fill">Inschrijven</span><span class="cart-ic"><b>2</b></span></div>
+            </div>
+            <div class="sec">
+                <div class="steps"><span class="done"><i>✓</i> Winkelwagen</span><hr><span class="on"><i>2</i> Gegevens</span><hr><span><i>3</i> Betalen</span></div>
+                <div class="h1">Afrekenen</div>
+                <div class="grid" style="grid-template-columns:1.8fr 1fr;gap:40px;align-items:start">
+                    <div class="rel" style="background:#eee;border:1px solid #999;padding:24px"><span class="n pin">1</span>
+                        <div class="h3">JOUW GEGEVENS</div>
+                        <div class="grid g2" style="gap:16px">
+                            <div class="field"><div class="label">Voornaam *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Achternaam *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">E-mailadres *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Telefoon *</div><div class="input" style="border:2px solid #333"></div><div style="font-size:12px;font-weight:bold;margin-top:4px">⚠ Vul een geldig telefoonnummer in.</div></div>
+                        </div>
+                        <div class="h3 rel" style="margin-top:12px">BEZORGEN OF AFHALEN <span class="n" style="margin-left:6px">2</span></div>
+                        <div class="grid g2" style="gap:12px;margin-bottom:14px">
+                            <div class="choice on"><b>Bezorgen</b><small>Gratis · kamado's in regio Breda</small></div>
+                            <div class="choice"><b>Afhalen in de winkel</b><small>Gratis · Voorbeeldstraat 12</small></div>
+                        </div>
+                        <div class="grid g2" style="gap:16px">
+                            <div class="field"><div class="label">Postcode *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Huisnummer *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Straat *</div><div class="input"></div></div>
+                            <div class="field"><div class="label">Plaats *</div><div class="input"></div></div>
+                        </div>
+                        <div class="h3" style="margin-top:12px">BETALEN <span class="n" style="margin-left:6px">3</span></div>
+                        <div class="grid g2" style="gap:12px;margin-bottom:14px">
+                            <div class="choice on"><b>Nu online betalen</b><small>iDEAL, Bancontact of creditcard</small></div>
+                            <div class="choice" style="border-style:dashed;color:#999"><b>Betalen bij afhalen</b><small>alleen bij afhalen</small></div>
+                        </div>
+                        <div class="field"><div class="label">Opmerkingen (optioneel)</div><div class="area" style="height:60px"></div></div>
+                        <div class="field check">Ik ga akkoord met de <u>voorwaarden</u> en het gebruik van mijn gegevens *</div>
+                        <span class="btn fill big">Bestellen en betalen</span>
+                        <div style="font-size:11px;margin-top:6px">* verplicht veld · 14 dagen bedenktijd</div>
+                    </div>
+                    <div class="summary rel"><span class="n pin">4</span>
+                        <div class="h3">JE BESTELLING</div>
+                        <div class="flex" style="font-size:13px;margin-top:8px"><span>1× Kamado Breda Blue L</span><b>€ 1.299,-</b></div>
+                        <div class="flex" style="font-size:13px;margin-top:6px"><span>1× Gietijzeren skillet</span><b>€ 59,-</b></div>
+                        <div style="border-top:1px solid #333;margin-top:12px;padding-top:8px">
+                            <div class="flex" style="font-size:13px"><span>Subtotaal</span><b>€ 1.358,-</b></div>
+                            <div class="flex" style="font-size:13px;margin-top:6px"><span>Verzendkosten</span><b>Gratis</b></div>
+                        </div>
+                        <div class="flex" style="border-top:1px solid #333;margin-top:12px;padding-top:12px"><b>TOTAAL</b><b>€ 1.358,-</b></div>
+                        <div style="font-size:11px;margin-top:4px">Incl. € 235,69 btw</div>
+                        <div style="margin-top:12px;font-size:12px;font-weight:bold">← WINKELWAGEN AANPASSEN</div>
+                        <div style="margin-top:10px"><span class="pay">iDEAL</span><span class="pay">Bancontact</span><span class="pay">Creditcard</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div><div class="logo"><i></i></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div><div><div class="line w60"></div></div>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> Formulier met <b>method="post"</b>, net als bij de masterclasses: PHP controleert alles via <b>$_POST</b>, foute velden krijgen een rode rand + melding en de ingevulde waarden blijven staan. Postcode moet het Nederlandse formaat hebben (4811 AB). Met een geheime code (CSRF) en een honeypot tegen spam.</li>
+                <li><span class="n">2</span> <b>Bezorgen of afhalen</b> (JavaScript): bij afhalen verdwijnen de adresvelden en worden de verzendkosten "Gratis".</li>
+                <li><span class="n">3</span> <b>Betalen bij afhalen</b> kan alleen als je afhalen kiest. De knop verandert dan in "Bestelling plaatsen".</li>
+                <li><span class="n">4</span> Samenvatting met alle artikelen, verzendkosten, totaal en btw. Past zich direct aan bij bezorgen/afhalen en schuift mee bij scrollen.</li>
+                <li>Goed ingevuld → PHP slaat de bestelling op in <b>data/bestellingen/</b> en stuurt de klant door naar Mollie (online betalen) of meteen naar de bevestiging (betalen bij afhalen).</li>
+                <li>Op mobiel staat alles onder elkaar, met de samenvatting onder het formulier.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     BETALEN + BEVESTIGING – MOBIEL
+     ========================================================= -->
+<div class="wf" id="betalen">
+    <p class="wf-title">Betalen &amp; bestelling bevestigd – mobiel</p>
+    <p class="wf-sub">Kamado Breda · wireframe 375 px · /afrekenen → Mollie (demo: /betalen/…) → /bestelling/KB-…</p>
+    <div class="wf-row">
+        <div class="frame mobile m ext rel"><span class="n pin">1</span>
+            <div class="header" style="background:#e6e6e6"><b>Betaalpagina Mollie</b><span style="font-size:11px">(externe site)</span></div>
+            <div class="sec center">
+                <div class="small">Kamado Breda bestelling KB-20261028-AB12CD</div>
+                <div class="h1">€ 1.358,-</div>
+                <div class="h3" style="text-align:left">Kies een betaalmethode</div>
+                <div class="choice on" style="text-align:left;margin-bottom:8px"><b>iDEAL</b></div>
+                <div class="choice" style="text-align:left;margin-bottom:8px"><b>Bancontact</b></div>
+                <div class="choice" style="text-align:left;margin-bottom:16px"><b>Creditcard</b></div>
+                <span class="btn fill big">Betalen</span>
+                <div style="font-size:11px;margin-top:16px;border-top:1px dashed #999;padding-top:10px">Demo (nog geen Mollie-sleutel): eigen betaalstap <b>/betalen/…</b> in de stijl van de site, met dezelfde keuze en de knoppen "Betalen" en "Annuleren"</div>
+            </div>
+        </div>
+        <div style="font-size:40px;align-self:center">→</div>
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"></span><div class="burger"><b></b><b></b><b></b></div></div></div>
+            <div class="sec center rel"><span class="n pin" style="right:8px">2</span>
+                <div class="steps" style="justify-content:center"><span class="done"><i>✓</i></span><hr><span class="done"><i>✓</i></span><hr><span class="done"><i>✓</i></span></div>
+                <div class="check-ok">✓</div>
+                <div class="h1">Bedankt, {voornaam}!</div>
+                <div class="line w90" style="margin:8px auto"></div><div class="line w70" style="margin:8px auto"></div>
+                <div class="table" style="text-align:left;background:#fff;padding:0 10px;margin:16px 0;border:1px solid #999">
+                    <div><b>1× Blue L</b>€ 1.299,-</div><div><b>1× Skillet</b>€ 59,-</div><div><b>Bezorgen</b>Gratis</div><div><b>Totaal</b>€ 1.358,-</div>
+                </div>
+                <div style="background:#eee;border:1px solid #999;padding:10px;text-align:left;font-size:12px"><b>Hoe nu verder?</b><br>We bellen je binnen 2 werkdagen voor een bezorgafspraak.</div>
+                <span class="btn fill" style="display:block;margin-top:12px">Bekijk de masterclasses</span>
+            </div>
+        </div>
+        <div class="frame mobile m">
+            <div class="header"><div class="logo"><i></i> KAMADO BREDA</div><div class="gap" style="gap:16px"><span class="cart-ic"><b>2</b></span><div class="burger"><b></b><b></b><b></b></div></div></div>
+            <div class="sec center rel"><span class="n pin" style="right:8px">3</span>
+                <div class="check-ok no">✕</div>
+                <div class="h1">De betaling is niet gelukt</div>
+                <div class="line w90" style="margin:8px auto"></div><div class="line w60" style="margin:8px auto"></div>
+                <span class="btn fill" style="display:block;margin-top:12px">Opnieuw proberen</span>
+                <span class="btn" style="display:block;margin-top:8px">Naar winkelwagen</span>
+            </div>
+        </div>
+        <div class="notes">
+            <h4>Toelichting</h4>
+            <ol>
+                <li><span class="n">1</span> <b>Mollie</b> is een externe betaalpagina (gestippelde rand). Na het betalen stuurt Mollie de klant terug naar /bestelling/{nummer}. Mollie meldt de status ook zelf via <b>/mollie-webhook</b>. Zonder API-sleutel draait de shop als demo met een eigen betaalstap (geen testmeldingen op de site; in de CSV staat "betaald (test)").</li>
+                <li><span class="n">2</span> <b>Betaald</b> (of "betalen bij afhalen"): bedankpagina met de bestelling en wat er nu gebeurt (bezorgafspraak of klaarleggen in de winkel). De winkelwagen wordt geleegd en de bestelling komt in <b>data/bestellingen.csv</b>. Alleen wie de bestelling heeft geplaatst kan deze pagina zien (bestelnummer staat in de sessie).</li>
+                <li><span class="n">3</span> <b>Geannuleerd / mislukt / verlopen:</b> er is niets betaald, de winkelwagen staat nog klaar en de gegevens zijn nog ingevuld. "Opnieuw proberen" gaat terug naar /afrekenen.</li>
             </ol>
         </div>
     </div>

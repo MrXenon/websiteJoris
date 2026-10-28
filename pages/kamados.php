@@ -1,10 +1,14 @@
 <?php
-$paginaTitel = "Kamado's";
-$actief = 'kamados.php';
-$scripts = ['gallery.js'];
-require 'includes/header.php';
+defined('KAMADO_BREDA') || exit;
 
-// Fotos voor de grote galerij bovenaan
+$paginaTitel = "Kamado's & accessoires";
+$beschrijving = "Bestel je blauwe kamado (M, L of XL) en gietijzeren accessoires online bij Kamado Breda. Bezorging in regio Breda of ophalen in de winkel.";
+$actief = 'kamados';
+$scripts = ['gallery.js'];
+$ogFoto = 'kamado-blue-l.jpg';
+require __DIR__ . '/../includes/header.php';
+
+// Foto's voor de grote galerij bovenaan
 $galerij = [
     ['kamado-blue-l.jpg', 'Kamado Breda Blue L met houten zijtafels'],
     ['kamado-blue-xl.jpg', 'Kamado Breda Blue XL'],
@@ -25,13 +29,13 @@ $galerij = [
     </div>
 </section>
 
-<section class="section">
+<section class="section section-tight">
     <div class="container">
-        <?php include 'includes/gallery.php'; ?>
+        <?php include __DIR__ . '/../includes/gallery.php'; ?>
     </div>
 </section>
 
-<section class="section section-light">
+<section class="section section-light" id="kamados">
     <div class="container">
         <div class="section-head">
             <h2>Kies jouw formaat</h2>
@@ -39,7 +43,7 @@ $galerij = [
         </div>
         <div class="grid grid-3">
             <?php foreach ($kamados as $id => $kamado) {
-                include 'includes/kamado-kaart.php';
+                include __DIR__ . '/../includes/kamado-kaart.php';
             } ?>
         </div>
     </div>
@@ -53,21 +57,12 @@ $galerij = [
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper.</p>
         </div>
         <div class="grid grid-4">
-            <?php foreach ($accessoires as $item): ?>
-                <article class="card">
-                    <div class="card-image">
-                        <img src="images/thumbs/<?= e($item['foto']) ?>" alt="<?= e($item['naam']) ?>" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <h3><?= e($item['naam']) ?></h3>
-                        <p><?= e($item['tekst']) ?></p>
-                        <p class="price"><?= prijs($item['prijs']) ?></p>
-                    </div>
-                </article>
-            <?php endforeach; ?>
+            <?php foreach ($accessoires as $id => $item) {
+                include __DIR__ . '/../includes/accessoire-kaart.php';
+            } ?>
         </div>
-        <p class="note">Accessoires zijn verkrijgbaar in de winkel aan de Voorbeeldstraat in Breda.</p>
+        <p class="note">Bestel online en laat het bezorgen, of haal je bestelling gratis op in de winkel aan de Voorbeeldstraat in Breda.</p>
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

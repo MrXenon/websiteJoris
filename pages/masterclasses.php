@@ -1,7 +1,5 @@
 <?php
-session_start();
-require_once 'includes/data.php';
-require_once 'includes/functions.php';
+defined('KAMADO_BREDA') || exit;
 
 $fouten = [];
 
@@ -26,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $invoer[$veld] = trim($_POST[$veld] ?? '');
     }
 
-    // Honeypot: dit veld is onzichtbaar, alleen spambots vullen het in
-    if (!empty($_POST['website'])) {
+    // Honeypot en CSRF: alleen spambots en andere websites gaan hier fout
+    if (!empty($_POST['website']) || !csrfOk()) {
         $fouten['algemeen'] = 'Er ging iets mis, probeer het opnieuw.';
     }
 
@@ -88,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         // Opslaan in een CSV-bestand (map data/ is afgeschermd met .htaccess)
-        $bestand = __DIR__ . '/data/aanmeldingen.csv';
+        $bestand = __DIR__ . '/../data/aanmeldingen.csv';
         $nieuw = !file_exists($bestand);
         $handle = fopen($bestand, 'a');
         if ($handle) {
@@ -102,8 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Gegevens meegeven aan de bevestigingspagina via de sessie
         $_SESSION['aanmelding'] = $aanmelding;
-        header('Location: bevestiging.php');
-        exit;
+        stuurDoor('bevestiging');
     }
 }
 
@@ -117,12 +114,13 @@ function fout($veld, $fouten)
 }
 
 $paginaTitel = 'Masterclasses';
-$actief = 'masterclass.php';
+$beschrijving = 'Leer low & slow barbecueën op de kamado bij Kamado Breda. Bekijk de agenda van de BBQ-masterclasses en schrijf je direct in.';
+$actief = 'masterclasses';
 $scripts = ['form.js'];
-require 'includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
-<section class="page-hero page-hero-image" style="background-image: url('images/masterclass-brisket-folie.jpg')">
+<section class="page-hero page-hero-image" style="background-image: image-set(url('images/masterclass-brisket-folie.webp') type('image/webp'), url('images/masterclass-brisket-folie.jpg') type('image/jpeg'))">
     <div class="container">
         <p class="eyebrow">Leer het van Joris</p>
         <h1>BBQ-masterclasses</h1>
@@ -138,7 +136,7 @@ require 'includes/header.php';
         </div>
         <div class="grid grid-3">
             <?php foreach ($masterclasses as $id => $class) {
-                include 'includes/masterclass-kaart.php';
+                include __DIR__ . '/../includes/masterclass-kaart.php';
             } ?>
         </div>
     </div>
@@ -158,7 +156,7 @@ require 'includes/header.php';
             </ul>
         </div>
         <div class="split-image">
-            <img src="images/masterclass-bbq-borden.jpg" alt="Borden met brisket, worst en bijgerechten" loading="lazy">
+            <?= foto('masterclass-bbq-borden.jpg', 'Borden met brisket, worst en bijgerechten') ?>
         </div>
     </div>
 </section>
@@ -172,7 +170,8 @@ require 'includes/header.php';
         </div>
 
         <div class="form-layout">
-            <form action="masterclass.php#inschrijven" method="post" class="form" id="inschrijfformulier" novalidate>
+            <form action="masterclasses#inschrijven" method="post" class="form" id="inschrijfformulier" novalidate>
+                <?= csrfVeld() ?>
 
                 <?php if (!empty($fouten)): ?>
                     <div class="alert alert-error" role="alert">
@@ -291,4 +290,4 @@ require 'includes/header.php';
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

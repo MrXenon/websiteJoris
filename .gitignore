@@ -1,2 +1,6 @@
-# Aanmeldingen bevatten persoonsgegevens -> niet in git
+# Aanmeldingen en bestellingen bevatten persoonsgegevens -> niet in git
 data/*.csv
+data/bestellingen/
+
+# Geheime instellingen (Mollie API-sleutel)
+includes/config.local.php

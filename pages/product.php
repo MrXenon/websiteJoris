@@ -1,54 +1,76 @@
 <?php
-require_once 'includes/data.php';
+defined('KAMADO_BREDA') || exit;
 
-// Welke kamado? bijv. product.php?id=blue-l
-$id = $_GET['id'] ?? '';
+// Welke kamado? Komt uit de URL, bijv. /kamados/blue-l (zie index.php)
+$productId = $parameter ?? '';
 
 // Bestaat dit product niet? Dan een nette 404-melding.
-if (!isset($kamados[$id])) {
+if (!isset($kamados[$productId])) {
     http_response_code(404);
     $paginaTitel = 'Product niet gevonden';
-    $actief = 'kamados.php';
-    require 'includes/header.php';
+    $actief = 'kamados';
+    $geenIndex = true;
+    require __DIR__ . '/../includes/header.php';
     ?>
     <section class="section">
         <div class="container narrow center">
             <h1>Oeps, deze kamado bestaat niet</h1>
             <p>Het product dat je zoekt is niet (meer) beschikbaar.</p>
-            <a href="kamados.php" class="btn btn-primary">Bekijk alle kamado's</a>
+            <a href="kamados" class="btn btn-primary">Bekijk alle kamado's</a>
         </div>
     </section>
     <?php
-    require 'includes/footer.php';
-    exit;
+    require __DIR__ . '/../includes/footer.php';
+    return;
 }
 
-$product = $kamados[$id];
+$product = $kamados[$productId];
 $galerij = $product['galerij'];
 
 $paginaTitel = $product['naam'];
-$actief = 'kamados.php';
+$beschrijving = $product['naam'] . ' – ' . $product['kort'] . ' Nu online te bestellen voor ' . prijs($product['prijs']) . ' bij Kamado Breda.';
+$actief = 'kamados';
 $scripts = ['gallery.js'];
-require 'includes/header.php';
+$ogFoto = $product['foto'];
+
+// Gestructureerde gegevens voor Google (prijs en voorraad in de zoekresultaten)
+$schema = [
+    '@context'    => 'https://schema.org',
+    '@type'       => 'Product',
+    'name'        => $product['naam'],
+    'description' => $product['kort'],
+    'image'       => siteUrl('images/' . $product['foto']),
+    'brand'       => ['@type' => 'Brand', 'name' => 'Kamado Breda'],
+    'offers'      => [
+        '@type'         => 'Offer',
+        'price'         => number_format($product['prijs'], 2, '.', ''),
+        'priceCurrency' => 'EUR',
+        'availability'  => 'https://schema.org/InStock',
+        'url'           => siteUrl('kamados/' . $productId),
+    ],
+];
+$extraHead = '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) . '</script>';
+
+require __DIR__ . '/../includes/header.php';
 ?>
 
-<section class="section">
+<section class="section section-tight">
     <div class="container">
         <nav class="breadcrumb" aria-label="Kruimelpad">
-            <a href="index.php">Home</a> /
-            <a href="kamados.php">Kamado's</a> /
-            <span><?= e($product['naam']) ?></span>
+            <a href="./">Home</a> /
+            <a href="kamados">Kamado's</a> /
+            <span aria-current="page"><?= e($product['naam']) ?></span>
         </nav>
 
         <div class="product-layout">
             <div>
-                <?php include 'includes/gallery.php'; ?>
+                <?php include __DIR__ . '/../includes/gallery.php'; ?>
             </div>
 
             <div class="product-info">
                 <span class="badge badge-inline"><?= e($product['badge']) ?></span>
                 <h1><?= e($product['naam']) ?></h1>
-                <p class="price price-big"><?= prijs($product['prijs']) ?></p>
+                <p class="price price-big"><?= prijs($product['prijs']) ?> <small>incl. btw</small></p>
                 <p class="lead"><?= e($product['kort']) ?></p>
                 <p><?= e($product['tekst']) ?></p>
 
@@ -58,11 +80,16 @@ require 'includes/header.php';
                     <?php endforeach; ?>
                 </ul>
 
-                <div class="product-actions">
-                    <a href="mailto:info@kamadobreda.nl?subject=Interesse in <?= rawurlencode($product['naam']) ?>" class="btn btn-primary">Vraag offerte aan</a>
-                    <a href="masterclass.php" class="btn btn-outline">Eerst een masterclass?</a>
+                <div class="buy-box">
+                    <?php $bestelId = $productId; $metAantal = true; include __DIR__ . '/../includes/bestelknop.php'; ?>
+                    <ul class="buy-box-usps">
+                        <li><span class="dot dot-green" aria-hidden="true"></span> Op voorraad in de winkel</li>
+                        <li>Gratis bezorging in regio Breda of ophalen in de winkel</li>
+                        <li>Veilig betalen met iDEAL, creditcard en meer</li>
+                    </ul>
                 </div>
-                <p class="note">Op voorraad in de winkel &middot; Bezorging in regio Breda mogelijk</p>
+
+                <p class="note">Liever eerst proberen? <a href="masterclasses">Volg een masterclass</a> of mail ons via <a href="mailto:info@kamadobreda.nl?subject=<?= rawurlencode('Vraag over ' . $product['naam']) ?>">info@kamadobreda.nl</a>.</p>
             </div>
         </div>
     </div>
@@ -86,12 +113,11 @@ require 'includes/header.php';
             <h2>Andere kamado's</h2>
             <div class="grid grid-2">
                 <?php
-                $huidigId = $id;
                 foreach ($kamados as $id => $kamado) {
-                    if ($id === $huidigId) {
+                    if ($id === $productId) {
                         continue; // het product dat je nu bekijkt niet nog een keer tonen
                     }
-                    include 'includes/kamado-kaart.php';
+                    include __DIR__ . '/../includes/kamado-kaart.php';
                 }
                 ?>
             </div>
@@ -99,4 +125,4 @@ require 'includes/header.php';
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

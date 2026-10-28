@@ -1,8 +1,11 @@
 <?php
+defined('KAMADO_BREDA') || exit;
+
 // Pagina voor URL's die niet bestaan
 http_response_code(404);
 $paginaTitel = 'Pagina niet gevonden';
-require 'includes/header.php';
+$geenIndex = true;
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="section">
@@ -11,10 +14,10 @@ require 'includes/header.php';
         <h1>Deze pagina bestaat niet</h1>
         <p>Misschien is de link verkeerd overgetypt, of is de pagina verplaatst.</p>
         <div class="hero-buttons center">
-            <a href="index.php" class="btn btn-primary">Naar de homepage</a>
-            <a href="kamados.php" class="btn btn-outline">Bekijk de kamado's</a>
+            <a href="./" class="btn btn-primary">Naar de homepage</a>
+            <a href="kamados" class="btn btn-outline">Bekijk de kamado's</a>
         </div>
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

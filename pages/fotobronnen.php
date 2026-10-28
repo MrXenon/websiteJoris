@@ -1,6 +1,8 @@
 <?php
+defined('KAMADO_BREDA') || exit;
+
 $paginaTitel = 'Fotobronnen';
-require 'includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="section">
@@ -32,4 +34,4 @@ require 'includes/header.php';
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

@@ -1,4 +1,6 @@
 <?php
+defined('KAMADO_BREDA') || exit;
+
 // Alle inhoud van de site staat hier op één plek.
 // Zo hoef ik een prijs of datum maar op één plek aan te passen (DRY).
 
@@ -93,11 +95,12 @@ $kamados = [
 ];
 
 // ---------- Accessoires ----------
+// De sleutel (bijv. 'skillet') is het product-ID in de winkelwagen.
 $accessoires = [
-    ['naam' => 'Gietijzeren skillet', 'prijs' => 59,  'foto' => 'accessoire-skillets.jpg',        'tekst' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'],
-    ['naam' => 'Gietijzer set',       'prijs' => 129, 'foto' => 'accessoire-gietijzer.jpg',       'tekst' => 'Sed posuere consectetur est at lobortis.'],
-    ['naam' => 'Plancha / grillpan',  'prijs' => 79,  'foto' => 'accessoire-skillet-gebruik.jpg', 'tekst' => 'Vestibulum id ligula porta felis euismod semper.'],
-    ['naam' => 'Houtskool 10 kg',     'prijs' => 24,  'foto' => 'accessoire-houtskool.jpg',       'tekst' => 'Maecenas sed diam eget risus varius blandit.'],
+    'skillet'        => ['naam' => 'Gietijzeren skillet', 'prijs' => 59,  'foto' => 'accessoire-skillets.jpg',        'tekst' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'],
+    'gietijzer-set'  => ['naam' => 'Gietijzer set',       'prijs' => 129, 'foto' => 'accessoire-gietijzer.jpg',       'tekst' => 'Sed posuere consectetur est at lobortis.'],
+    'plancha'        => ['naam' => 'Plancha / grillpan',  'prijs' => 79,  'foto' => 'accessoire-skillet-gebruik.jpg', 'tekst' => 'Vestibulum id ligula porta felis euismod semper.'],
+    'houtskool-10kg' => ['naam' => 'Houtskool 10 kg',     'prijs' => 24,  'foto' => 'accessoire-houtskool.jpg',       'tekst' => 'Maecenas sed diam eget risus varius blandit.'],
 ];
 
 // ---------- Masterclasses ----------
@@ -133,6 +136,11 @@ $masterclasses = [
         'tekst'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum.',
     ],
 ];
+
+// Masterclasses die al geweest zijn niet meer tonen (en niet meer laten boeken)
+$masterclasses = array_filter($masterclasses, function ($class) {
+    return $class['datum'] >= date('Y-m-d');
+});
 
 // Maximaal aantal personen per inschrijving
 $maxPersonen = 4;

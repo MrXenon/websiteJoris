@@ -1,10 +1,9 @@
 <?php
-session_start();
+defined('KAMADO_BREDA') || exit;
 
 // Alleen tonen als iemand net het formulier heeft verstuurd
 if (!isset($_SESSION['aanmelding'])) {
-    header('Location: masterclass.php');
-    exit;
+    stuurDoor('masterclasses');
 }
 
 $aanmelding = $_SESSION['aanmelding'];
@@ -18,8 +17,9 @@ $ervaringTekst = [
 ];
 
 $paginaTitel = 'Inschrijving bevestigd';
-$actief = 'masterclass.php';
-require 'includes/header.php';
+$actief = 'masterclasses';
+$geenIndex = true;
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="section">
@@ -51,11 +51,11 @@ require 'includes/header.php';
             <p>Je betaalt op de dag zelf in de winkel (pin of contant). Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
             <div class="hero-buttons center">
-                <a href="index.php" class="btn btn-primary">Terug naar home</a>
-                <a href="kamados.php" class="btn btn-outline">Bekijk de kamado's</a>
+                <a href="./" class="btn btn-primary">Terug naar home</a>
+                <a href="kamados" class="btn btn-outline">Bekijk de kamado's</a>
             </div>
         </div>
     </div>
 </section>
 
-<?php require 'includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

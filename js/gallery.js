@@ -3,6 +3,7 @@
 
 document.querySelectorAll('[data-gallery]').forEach(function (galerij) {
     const groteFoto = galerij.querySelector('[data-gallery-image]');
+    const webpBron = galerij.querySelector('[data-gallery-source]');
     const thumbs = galerij.querySelectorAll('.gallery-thumb');
     const teller = galerij.querySelector('[data-gallery-counter]');
     const vorigeKnop = galerij.querySelector('[data-gallery-prev]');
@@ -31,13 +32,14 @@ document.querySelectorAll('[data-gallery]').forEach(function (galerij) {
         // Eerst laten vervagen, dan de nieuwe foto laden
         groteFoto.classList.add('fade');
         setTimeout(function () {
+            webpBron.srcset = thumb.dataset.fullWebp;
             groteFoto.src = thumb.dataset.full;
             groteFoto.alt = thumb.dataset.alt;
         }, 150);
 
         // Staat de lightbox open? Dan daar ook de nieuwe foto tonen
         if (lightbox.classList.contains('open')) {
-            lightboxFoto.src = thumb.dataset.full;
+            lightboxFoto.src = thumb.dataset.fullWebp;
             lightboxFoto.alt = thumb.dataset.alt;
         }
 
@@ -72,6 +74,10 @@ document.querySelectorAll('[data-gallery]').forEach(function (galerij) {
 
     // Pijltjestoetsen op het toetsenbord
     document.addEventListener('keydown', function (event) {
+        // Niet reageren als iemand in een invoerveld zit (bijv. het aantal)
+        if (event.target.closest('input, textarea, select')) {
+            return;
+        }
         if (event.key === 'ArrowLeft') {
             toonFoto(huidige - 1);
         } else if (event.key === 'ArrowRight') {
@@ -105,7 +111,7 @@ document.querySelectorAll('[data-gallery]').forEach(function (galerij) {
     const lightboxFoto = lightbox.querySelector('img');
 
     function openLightbox() {
-        lightboxFoto.src = groteFoto.src;
+        lightboxFoto.src = groteFoto.currentSrc || groteFoto.src;
         lightboxFoto.alt = groteFoto.alt;
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
